@@ -1,12 +1,13 @@
 // generate https://app.quicktype.io/?l=ts
 
 export interface Post {
+  _id:             string
   title:           string
   titleCustom:     string
   slug:            string
   date:            string
   url:             string
-  category:        string[]
+  categories:      Category[]
   credit:          string
   colorBackground: string
   colorText:       string
@@ -15,6 +16,27 @@ export interface Post {
   notAvailable:    boolean
   thumbnail:       Image
   images:          Image[]
+}
+
+export interface Category {
+  _id:  string
+  _sys: Sys
+  name: string
+  slug: string
+}
+
+export interface Sys {
+  raw:         Raw
+  customOrder: number
+  createdAt:   Date
+  updatedAt:   Date
+}
+
+export interface Raw {
+  createdAt:        Date
+  updatedAt:        Date
+  firstPublishedAt: Date
+  publishedAt:      Date
 }
 
 export interface Image {
@@ -29,6 +51,9 @@ export interface Image {
   src:         string
   title:       string
   width:       number
+}
+
+export interface Metadata {
 }
 
 export interface Metadata {
