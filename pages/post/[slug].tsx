@@ -44,7 +44,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         </ul>
       </main>
 
-      <Posts posts={ posts }></Posts>
+      <Posts current={post.slug} posts={ posts }></Posts>
       <p><Link href={'/'}>Back to Index</Link></p>
     </>
   )

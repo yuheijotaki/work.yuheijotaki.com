@@ -15,7 +15,7 @@ export default function Home({ posts }: { posts: Post[] }) {
       <Header>
       </Header>
       <main className={styles.main}>
-        <Posts posts={ posts }></Posts>
+        <Posts current='' posts={ posts }></Posts>
       </main>
     </>
   )

@@ -55,6 +55,3 @@ export interface Image {
 
 export interface Metadata {
 }
-
-export interface Metadata {
-}
