@@ -3,7 +3,7 @@ import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import nl2br from 'react-nl2br'
 import variables from '@/styles/variables.module.scss';
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/Posts.module.scss'
 
 export default function Posts({ posts }: { posts: Post[] }) {
   return (
@@ -13,8 +13,9 @@ export default function Posts({ posts }: { posts: Post[] }) {
           return (
             <li key={post._id}>
               <Link href={`/post/${post.slug}`} style={{ color: variables.primaryColor }}>
-                <h1 className={styles.test}>{post.title}</h1>
-                <p>{nl2br(post.titleCustom)}</p>
+                <p className={styles.test}>{post.title}</p>
+                <img src={post.thumbnail.src} alt={post.title} width="200" />
+                {/* <p>{nl2br(post.titleCustom)}</p>
                 <p>{post.slug}</p>
                 <p>{post.date}</p>
                 <p>{post.url}</p>
@@ -30,11 +31,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
                 <p>{post.notAvailable
                   ? 'notAvailable true'
                   : 'notAvailable false'
-                }</p>
-                <p>{post.thumbnail.src}</p>
-                <ul>
-                  <li>{post.images.map((object: { src: string }) => object.src)}</li>
-                </ul>
+                }</p> */}
               </Link>
             </li>
           )

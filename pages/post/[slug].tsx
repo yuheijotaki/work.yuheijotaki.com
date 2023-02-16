@@ -2,9 +2,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { getPosts, getPostBySlug } from '@/lib/newt'
 import type { Post } from '@/types/post'
+import Header from '@/components/header'
 import Posts from '@/components/posts'
 import nl2br from 'react-nl2br'
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/Post.module.scss'
 
 // export default function Home({ posts }: { posts: Post[] }) {
 export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
@@ -14,8 +15,10 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         <title>{post.title}</title>
         <meta name="description" content="投稿詳細ページです" />
       </Head>
-      <main className={styles.main}>
-        <h1>{post.title}</h1>
+      <Header>
+      </Header>
+      <main>
+        <h1 className={styles.test}>{post.title}</h1>
         <p>{nl2br(post.titleCustom)}</p>
         <p>{post.slug}</p>
         <p>{post.date}</p>
@@ -33,9 +36,11 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
           ? 'notAvailable true'
           : 'notAvailable false'
         }</p>
-        <p>{post.thumbnail.src}</p>
+        {/* <p>{post.thumbnail.src}</p> */}
         <ul>
-          <li>{post.images.map((object: { src: string }) => object.src)}</li>
+          {post.images.map((object, index) => {
+            return ( <li key={index}><img src={object.src} alt={object.title} width='100' /></li> )
+          })}
         </ul>
       </main>
 

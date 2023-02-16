@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
+import Header from '@/components/header'
 import Posts from '@/components/posts'
 import styles from '@/styles/Home.module.scss'
 
@@ -11,7 +12,9 @@ export default function Home({ posts }: { posts: Post[] }) {
         <title>Newt・Next.jsブログ</title>
         <meta name="description" content="NewtとNext.jsを利用したブログです" />
       </Head>
-      <main className={styles.main} >
+      <Header>
+      </Header>
+      <main className={styles.main}>
         <Posts posts={ posts }></Posts>
       </main>
     </>
