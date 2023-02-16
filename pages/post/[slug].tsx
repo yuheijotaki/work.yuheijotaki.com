@@ -7,11 +7,6 @@ import nl2br from 'react-nl2br'
 
 // export default function Home({ posts }: { posts: Post[] }) {
 export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
-  // const categoryArray = post.category
-  // const category = categoryArray.split(',')
-  // const list = post.category.map(category: any => <li>{category}</li>)
-  // const list = ;
-  // console.log(list)
   return (
     <>
       <Head>
@@ -24,7 +19,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         <p>{post.slug}</p>
         <p>{post.date}</p>
         <p>{post.url}</p>
-        <p>{post.category.map((value: any) => value).join(', ')}</p>
+        <p>{post.category.map((value: string) => value).join(', ')}</p>
         <p>{nl2br(post.credit)}</p>
         <p>{post.colorBackground}</p>
         <p>{post.colorText}</p>
@@ -39,7 +34,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         }</p>
         <p>{post.thumbnail.src}</p>
         <ul>
-          <li>{post.images.map((object: { src: any }) => object.src)}</li>
+          <li>{post.images.map((object: { src: string }) => object.src)}</li>
         </ul>
       </main>
 
@@ -53,7 +48,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
                   <p>{post.slug}</p>
                   <p>{post.date}</p>
                   <p>{post.url}</p>
-                  <p>{post.category.map((value: any) => value).join(', ')}</p>
+                  <p>{post.category.map((value: string) => value).join(', ')}</p>
                   <p>{nl2br(post.credit)}</p>
                   <p>{post.colorBackground}</p>
                   <p>{post.colorText}</p>
@@ -68,7 +63,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
                   }</p>
                   <p>{post.thumbnail.src}</p>
                   <ul>
-                    <li>{post.images.map((object: { src: any }) => object.src)}</li>
+                    <li>{post.images.map((object: { src: string }) => object.src)}</li>
                   </ul>
                 </Link>
               </li>
