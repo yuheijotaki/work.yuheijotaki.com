@@ -20,6 +20,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-nl2br": "^1.0.4",
+    "ress": "^5.0.2",
     "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "sass": "^1.58.1"
   }
 }

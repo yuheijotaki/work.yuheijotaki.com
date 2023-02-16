@@ -5,7 +5,8 @@ export interface Post {
   slug: string
   date: string
   url: string
-  category: Array<string>
+  category: any
+  // category: Array<string>
   credit: string
   colorBackground: string
   colorText: string
@@ -13,7 +14,7 @@ export interface Post {
   archive: Boolean
   notAvailable: Boolean
   thumbnail: any
-  images: any
   // thumbnail: Object
+  images: any
   // images: Array<object>
 }
