@@ -12,7 +12,7 @@ export const getPosts = async () => {
     appUid: 'works',
     modelUid: 'post',
     query: {
-      select: ['_id', 'title', 'slug'],
+      select: ['_id', 'title', 'titleCustom', 'slug', 'date', 'url', 'category', 'credit', 'colorBackground', 'colorText', 'colorCustom', 'archive', 'notAvailable', 'thumbnail', 'images'],
     },
   })
   return items
@@ -24,7 +24,7 @@ export const getPostBySlug = async (slug: string) => {
     modelUid: 'post',
     query: {
       slug,
-      select: ['_id', 'title', 'slug'],
+      select: ['_id', 'title', 'titleCustom', 'slug', 'date', 'url', 'category', 'credit', 'colorBackground', 'colorText', 'colorCustom', 'archive', 'notAvailable', 'thumbnail', 'images'],
     },
   })
   return post

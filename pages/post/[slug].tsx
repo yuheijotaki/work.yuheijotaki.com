@@ -1,9 +1,12 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import { getPosts, getPostBySlug } from '@/lib/newt'
 import type { Post } from '@/types/post'
+import nl2br from 'react-nl2br'
 
-export default function Post({ post }: { post: Post }) {
+// export default function Home({ posts }: { posts: Post[] }) {
+export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
   return (
     <>
       <Head>
@@ -12,10 +15,64 @@ export default function Post({ post }: { post: Post }) {
       </Head>
       <main className={styles.main}>
         <h1>{post.title}</h1>
-        <p>{post._id}</p>
+        <p>{nl2br(post.titleCustom)}</p>
         <p>{post.slug}</p>
-        {/* <div dangerouslySetInnerHTML={{ __html: post.body }} /> */}
+        <p>{post.date}</p>
+        <p>{post.url}</p>
+        <p>{post.category}</p>
+        <p>{nl2br(post.credit)}</p>
+        <p>{post.colorBackground}</p>
+        <p>{post.colorText}</p>
+        <p>{post.colorCustom}</p>
+        <p>{post.archive
+          ? 'archive true'
+          : 'archive false'
+        }</p>
+        <p>{post.notAvailable
+          ? 'notAvailable true'
+          : 'notAvailable false'
+        }</p>
+        <p>{post.thumbnail.src}</p>
+        <ul>
+          <li>{post.images.map((object: { src: any }) => object.src)}</li>
+        </ul>
       </main>
+
+      <ul>
+          {posts.map((post) => {
+            return (
+              <li key={post._id}>
+                <Link href={`${post.slug}`}>
+                  <h1>{post.title}</h1>
+                  <p>{nl2br(post.titleCustom)}</p>
+                  <p>{post.slug}</p>
+                  <p>{post.date}</p>
+                  <p>{post.url}</p>
+                  <p>{post.category}</p>
+                  <p>{nl2br(post.credit)}</p>
+                  <p>{post.colorBackground}</p>
+                  <p>{post.colorText}</p>
+                  <p>{post.colorCustom}</p>
+                  <p>{post.archive
+                    ? 'archive true'
+                    : 'archive false'
+                  }</p>
+                  <p>{post.notAvailable
+                    ? 'notAvailable true'
+                    : 'notAvailable false'
+                  }</p>
+                  <p>{post.thumbnail.src}</p>
+                  <ul>
+                    <li>{post.images.map((object: { src: any }) => object.src)}</li>
+                  </ul>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+
+        <p><Link href={'/'}>Back to Index</Link></p>
+
     </>
   )
 }
@@ -39,9 +96,11 @@ export const getStaticProps = async ({
 }) => {
   const { slug } = params
   const post = await getPostBySlug(slug)
+  const posts = await getPosts()
   return {
     props: {
       post,
+      posts,
     },
   }
 }
