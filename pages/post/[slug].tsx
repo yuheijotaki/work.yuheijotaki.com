@@ -23,7 +23,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
     html {
       --color-text: ${post.colorText};
     }
-  `;
+  `
 
   let detectUrl = () => {
     if (post.notAvailable) {
