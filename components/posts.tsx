@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import styles from '@/styles/components/Posts.module.scss'
@@ -9,7 +10,13 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
       return (
         <span className={`${styles['anchor']} ${styles['is-text']}`}>
           <p className={styles['image']}>
-            <img src={post.thumbnail.src} alt={post.title} width="200" />
+            <Image
+              src={post.thumbnail.src}
+              width={post.thumbnail.width}
+              height={post.thumbnail.height}
+              alt={post.title}
+              quality={60}
+            />
           </p>
           <section className="content">
             <h3 className={styles['title']}>{post.title}</h3>
@@ -24,7 +31,13 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
       return (
         <Link href={`/post/${post.slug}`} className={`${styles['anchor']} ${styles['is-link']}`}>
           <p className={styles['image']}>
-            <img src={post.thumbnail.src} alt={post.title} width="200" />
+            <Image
+              src={post.thumbnail.src}
+              width={post.thumbnail.width}
+              height={post.thumbnail.height}
+              alt={post.title}
+              quality={60}
+            />
           </p>
           <section className="content">
             <h3 className={styles['title']}>{post.title}</h3>

@@ -13,6 +13,9 @@ const nextConfig = {
   sassOptions: {  // Sass（SCSS）を使用
     includePaths: [path.join(__dirname, 'styles')],
   },
+  images: { // next/image で外部画像を参照
+    domains: ['storage.googleapis.com'],
+  },
 }
 
 module.exports = nextConfig

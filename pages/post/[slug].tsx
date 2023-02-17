@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/newt'
 import { createGlobalStyle } from 'styled-components'
 import nl2br from 'react-nl2br'
@@ -72,7 +73,17 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         </div>
         <ul className={styles['capture']}>
           {post.images.map((object, index) => {
-            return (<li key={index}><img src={object.src} alt={object.title} /></li>)
+            return (
+              <li key={index}>
+                <Image
+                  src={object.src}
+                  width={object.width}
+                  height={object.height}
+                  alt={object.title}
+                  quality={60}
+                />
+              </li>
+            )
           })}
         </ul>
       </section>
