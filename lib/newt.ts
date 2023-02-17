@@ -15,19 +15,10 @@ export const getPosts = async () => {
       select: [
         '_id',
         'title',
-        'titleCustom',
         'slug',
         'date',
-        'url',
         'categories',
-        'credit',
-        'colorBackground',
-        'colorText',
-        'colorCustom',
-        'archive',
-        'notAvailable',
         'thumbnail',
-        'images'
       ],
     },
   })
@@ -41,17 +32,13 @@ export const getPostBySlug = async (slug: string) => {
     query: {
       slug,
       select: [
-        '_id',
         'title',
-        'titleCustom',
         'slug',
         'date',
         'url',
         'categories',
         'credit',
-        'colorBackground',
         'colorText',
-        'colorCustom',
         'archive',
         'notAvailable',
         'thumbnail',

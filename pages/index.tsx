@@ -32,9 +32,9 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Head>
       <Header>
       </Header>
-      <main className={styles.test}>
+      <section className={styles.works}>
         <Posts current='' posts={ posts }></Posts>
-      </main>
+      </section>
     </>
   )
 }

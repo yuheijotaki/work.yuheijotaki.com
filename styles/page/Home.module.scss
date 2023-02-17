@@ -1,6 +1,13 @@
 @import './../foundation/variables.scss';
 @import './../foundation/mixin.scss';
 
-.test {
-  // background-color: $black_01;
+@mixin section {
+  margin-top: 60px;
+  @include mq {
+    margin-top: 30px;
+  }
+}
+
+.works {
+  @include section;
 }
