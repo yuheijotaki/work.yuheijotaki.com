@@ -1,11 +1,84 @@
 @import './../foundation/variables.scss';
 @import './../foundation/mixin.scss';
 
-.test {
-  background-color: green;
+.posts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.is-current {
-  display: block;
-  opacity: .5;
+.posts__item {
+  width: 50%;
+  @include mq {
+    width: 100%;
+    margin-top: 30px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.anchor {
+  display: flex;
+  text-decoration: none;
+  padding: 30px;
+  @include mq {
+    padding: 0;
+  }
+}
+.is-link {
+  color: $black_01;
+  &:hover {
+    background: $gray_01;
+    @include mq {
+      background: none;
+    }
+  }
+}
+.is-text {
+  opacity: .25;
+}
+
+.image {
+  max-width: 160px;
+  min-width: 160px;
+  margin-right: 20px;
+  @include imageItem;
+  @include mq {
+    max-width: 100px;
+    min-width: 100px;
+    margin-right: 15px;
+  }
+  img {
+    @include imageObject;
+  }
+}
+
+.content {
+}
+
+.title {
+  line-height: 1.2;
+  font-weight: normal;
+  @include fontLarge;
+}
+
+.meta {
+  margin-top: 10px;
+  line-height: 1;
+  @include fontSmall;
+  @include mq {
+    margin-top: 5px;
+  }
+}
+
+.date {
+}
+
+.category {
+  margin-top: 10px;
+  @include mq {
+    display: none;
+  }
 }

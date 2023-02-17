@@ -5,13 +5,13 @@
   background-color: #999;
 }
 
-.title {
+.logo {
   line-height: 1;
   font-weight: normal;
   @include fontLarge;
 }
 
-.link {
+.anchor {
   color: $black_01;
   text-decoration: none;
   display: inline-block;

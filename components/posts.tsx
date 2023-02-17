@@ -9,34 +9,32 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
   let detectCurrent = (post: Post) => {
     if (current === post.slug) {
       return (
-        <span className={styles['is-current']}>
-          <p>{post.title}</p>
-          <img src={post.thumbnail.src} alt={post.title} width="200" />
+        <span className={`${styles['anchor']} ${styles['is-text']}`}>
+          <p className={styles['image']}>
+            <img src={post.thumbnail.src} alt={post.title} width="200" />
+          </p>
+          <section className="content">
+            <h3 className={styles['title']}>{post.title}</h3>
+            <div className={styles['meta']}>
+              <p className={styles['date']}>{post.date}</p>
+              <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+            </div>
+          </section>
         </span>
       )
     } else {
       return (
-        // <Link href={`/post/${post.slug}`} style={{ color: variables.primaryColor }}>
-        <Link href={`/post/${post.slug}`}>
-          <p className={styles.test}>{post.title}</p>
-          <img src={post.thumbnail.src} alt={post.title} width="200" />
-          {/* <p>{nl2br(post.titleCustom)}</p>
-          <p>{post.slug}</p>
-          <p>{post.date}</p>
-          <p>{post.url}</p>
-          <p>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
-          <p>{nl2br(post.credit)}</p>
-          <p>{post.colorBackground}</p>
-          <p>{post.colorText}</p>
-          <p>{post.colorCustom}</p>
-          <p>{post.archive
-            ? 'archive true'
-            : 'archive false'
-          }</p>
-          <p>{post.notAvailable
-            ? 'notAvailable true'
-            : 'notAvailable false'
-          }</p> */}
+        <Link href={`/post/${post.slug}`} className={`${styles['anchor']} ${styles['is-link']}`}>
+          <p className={styles['image']}>
+            <img src={post.thumbnail.src} alt={post.title} width="200" />
+          </p>
+          <section className="content">
+            <h3 className={styles['title']}>{post.title}</h3>
+            <div className={styles['meta']}>
+              <p className={styles['date']}>{post.date}</p>
+              <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+            </div>
+          </section>
         </Link>
       )
     }
@@ -44,10 +42,10 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
 
   return (
     <>
-      <ul>
+      <ul className={styles['posts']}>
         {posts.map((post) => {
           return (
-            <li key={post._id}>
+            <li key={post._id} className={styles['posts__item']}>
               {detectCurrent(post)}
             </li>
           )

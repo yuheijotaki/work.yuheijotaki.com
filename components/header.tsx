@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 export default function Header({ children }: {children: ReactNode}) {
   return (
     <>
-      <h1 className={styles.title}><Link href={'/'} className={styles.link}>{process.env.siteName}</Link></h1>
+      <h1 className={styles['logo']}><Link href={'/'} className={styles['anchor']}>{process.env.siteName}</Link></h1>
     </>
   )
 }
