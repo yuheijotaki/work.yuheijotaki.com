@@ -9,11 +9,29 @@ import styles from '@/styles/Post.module.scss'
 
 // export default function Home({ posts }: { posts: Post[] }) {
 export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
+  const metaTitle = `${post.title} | ${process.env.siteName}`
+  const metaDescription = `${post.title} Webサイトの構築事例紹介です。`
+  const metaPageUrl = `${process.env.siteUrl}post/${post.slug}/`
+  const metaSiteName = process.env.siteName
+  const metaImage = post.thumbnail.src
+  const metaType = 'article'
+  const metaCard = process.env.metaCard
   return (
     <>
       <Head>
-        <title>{post.title}</title>
-        <meta name="description" content="投稿詳細ページです" />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta property="og:site_name" content={metaSiteName} />
+        <meta property="og:url" content={metaPageUrl} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:type" content={metaType} />
+        <meta property="og:image" content={metaImage} />
+        <meta name="twitter:url" content={metaPageUrl} />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:card" content={metaCard} />
+        <meta name="twitter:image:src" content={metaImage} />
       </Head>
       <Header>
       </Header>
@@ -39,9 +57,11 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         {/* <p>{post.thumbnail.src}</p> */}
         <ul>
           {post.images.map((object, index) => {
-            return ( <li key={index}><img src={object.src} alt={object.title} width='100' /></li> )
+            return (<li key={index}><img src={object.src} alt={object.title} width='100' /></li>)
           })}
         </ul>
+
+
       </main>
 
       <Posts current={post.slug} posts={ posts }></Posts>

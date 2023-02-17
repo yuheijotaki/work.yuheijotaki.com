@@ -6,7 +6,7 @@ export default function Header({ children }: {children: ReactNode}) {
   return (
     <>
       <header className={styles.header}>
-        <p><Link href={'/'}>works.yuheijotaki.dev</Link></p>
+        <p><Link href={'/'}>{process.env.siteName}</Link></p>
       </header>
     </>
   )
