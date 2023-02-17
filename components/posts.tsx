@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
-import nl2br from 'react-nl2br'
-// import variables from '@/styles/variables.scss';
 import styles from '@/styles/components/Posts.module.scss'
 
 export default function Posts({ posts, current }: { posts: Post[], current: string }) {

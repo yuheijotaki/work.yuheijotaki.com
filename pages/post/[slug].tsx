@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { getPosts, getPostBySlug } from '@/lib/newt'
+import { createGlobalStyle } from 'styled-components'
+import nl2br from 'react-nl2br'
 import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
-import nl2br from 'react-nl2br'
 import styles from '@/styles/page/Post.module.scss'
 
 // export default function Home({ posts }: { posts: Post[] }) {
@@ -16,8 +17,32 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
   const metaImage = post.thumbnail.src
   const metaType = 'article'
   const metaCard = process.env.metaCard
+
+  const GlobalStyles = createGlobalStyle`
+    html {
+      --color-text: ${post.colorText};
+    }
+  `;
+
+  let detectUrl = () => {
+    if (post.notAvailable) {
+      return (
+        <p className={styles['url']}><span><s>{post.url}</s> &nbsp;(not available)</span></p>
+      )
+    } else if (post.archive) {
+      return (
+        <p className={styles['url']}><a href={post.url} target="_blank">{post.url}<span>&nbsp;(archive)</span></a></p>
+      )
+      } else {
+      return (
+        <p className={styles['url']}><a href={post.url} target="_blank">{post.url}</a></p>
+      )
+    }
+  }
+
   return (
     <>
+      <GlobalStyles />
       <Head>
         <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
@@ -35,37 +60,26 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
       </Head>
       <Header>
       </Header>
-      <main>
-        <h1 className={styles.test}>{post.title}</h1>
-        <p>{nl2br(post.titleCustom)}</p>
-        <p>{post.slug}</p>
-        <p>{post.date}</p>
-        <p>{post.url}</p>
-        <p>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
-        <p>{nl2br(post.credit)}</p>
-        <p>{post.colorBackground}</p>
-        <p>{post.colorText}</p>
-        <p>{post.colorCustom}</p>
-        <p>{post.archive
-          ? 'archive true'
-          : 'archive false'
-        }</p>
-        <p>{post.notAvailable
-          ? 'notAvailable true'
-          : 'notAvailable false'
-        }</p>
-        {/* <p>{post.thumbnail.src}</p> */}
-        <ul>
+      <section className={styles['post']}>
+        <h2 className={styles['title']}>{post.title}</h2>
+        <div className={styles['meta']}>
+          <p className={styles['date']}>{post.date}</p>
+          <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+          {detectUrl()}
+        </div>
+        <div className={styles['credit']}>
+          <p>{nl2br(post.credit)}</p>
+        </div>
+        <ul className={styles['capture']}>
           {post.images.map((object, index) => {
-            return (<li key={index}><img src={object.src} alt={object.title} width='100' /></li>)
+            return (<li key={index}><img src={object.src} alt={object.title} /></li>)
           })}
         </ul>
-
-
-      </main>
-
-      <Posts current={post.slug} posts={ posts }></Posts>
-      <p><Link href={'/'}>Back to Index</Link></p>
+      </section>
+      <section className={styles['works']}>
+        <Posts current={post.slug} posts={posts}></Posts>
+      </section>
+      <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>
     </>
   )
 }

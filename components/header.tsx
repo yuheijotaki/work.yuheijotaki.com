@@ -1,6 +1,6 @@
 import Link from 'next/link'
+import { ReactNode } from 'react'
 import styles from '@/styles/components/Header.module.scss'
-import { ReactNode } from 'react';
 
 export default function Header({ children }: {children: ReactNode}) {
   return (

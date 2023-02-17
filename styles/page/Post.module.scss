@@ -1,6 +1,148 @@
 @import './../foundation/variables.scss';
 @import './../foundation/mixin.scss';
 
-.test {
-  background-color: blue;
+// .test {
+//   background-color: blue;
+// }
+
+$color_text: var(--color-text);
+
+@mixin section {
+  margin-top: 60px;
+  @include mq {
+    margin-top: 30px;
+  }
+}
+
+.post {
+  @include section;
+}
+
+.title {
+  color: $color_text;
+  font-weight: normal;
+  line-height: 1.2;
+  @include fontExLarge;
+  @include indent01;
+}
+
+.meta {
+  @include section;
+  p {
+    margin-top: 15px;
+    color: $color_text;
+    line-height: 1;
+    @include fontMedium;
+    @include indent01;
+    @include mq {
+      margin-top: 10px;
+    }
+    &.url {
+      margin-top: 5px;
+      margin-left: 0;
+      margin-right: 0;
+      line-height: 1.4;
+      @include enTextBr;
+      @include mq {
+        margin-top: 10px;
+      }
+    }
+    a {
+      color: $color_text;
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 30px;
+      @include mq {
+        padding: 0;
+      }
+      &:hover {
+        color: $black_01;
+        background: $gray_01;
+        span {
+          color: $black_01;
+        }
+        @include mq {
+          color: $color_text;
+          background: none;
+          span {
+           color: $color_text;
+          }
+        }
+      }
+      span {
+        color: $color_text;
+        display: inline;
+        padding: 0;
+      }
+    }
+    span {
+      color: $color_text;
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 30px;
+      @include mq {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.credit {
+  margin-top: 30px;
+  @include indent01;
+  p {
+    color: $color_text;
+    line-height: 1.7;
+    @include fontMedium;
+  }
+}
+
+.capture {
+  margin-top: 50px;
+  list-style: none;
+  @include indent01;
+  li {
+    @include imageItem;
+    max-width: 500px;
+    margin-top: 30px;
+    &:first-child {
+      margin-top: 0;
+    }
+    @include mq {
+      max-width: 400px;
+    }
+  }
+  img {
+    @include imageObject;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.works {
+  margin-top: 120px;
+  @include mq {
+    margin-top: 70px;
+  }
+}
+
+.back {
+  margin-top: 60px;
+  line-height: 1;
+  @include fontMedium;
+  a {
+    color: $black_01;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 30px;
+    @include mq {
+      padding: 0;
+    }
+    &:hover {
+      background: $gray_01;
+      @include mq {
+        background: none;
+      }
+    }
+  }
 }
