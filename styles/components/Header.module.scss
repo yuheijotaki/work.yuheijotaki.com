@@ -4,3 +4,25 @@
 .header {
   background-color: #999;
 }
+
+.title {
+  line-height: 1;
+  font-weight: normal;
+  @include fontLarge;
+}
+
+.link {
+  color: $black_01;
+  text-decoration: none;
+  display: inline-block;
+  padding: 15px 30px;
+  &:hover {
+    background: $gray_01;
+    @include mq {
+      background: none;
+    }
+  }
+  @include mq {
+    padding: 0;
+  }
+}
