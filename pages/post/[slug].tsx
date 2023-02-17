@@ -31,11 +31,11 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
       )
     } else if (post.archive) {
       return (
-        <p className={styles['url']}><a href={post.url} target="_blank">{post.url}<span>&nbsp;(archive)</span></a></p>
+        <p className={styles['url']}><a href={post.url} target="_blank" rel="noreferrer">{post.url}<span>&nbsp;(archive)</span></a></p>
       )
       } else {
       return (
-        <p className={styles['url']}><a href={post.url} target="_blank">{post.url}</a></p>
+        <p className={styles['url']}><a href={post.url} target="_blank" rel="noreferrer">{post.url}</a></p>
       )
     }
   }
