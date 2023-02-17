@@ -1,0 +1,171 @@
+// ===================================
+// Break Points
+// ===================================
+@mixin mq($breakpoint: tb) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+// usage
+// .hoge {
+//   background: red;
+//   @include mq {
+//     background: blue;
+//   }
+// }
+
+// ===================================
+// inner
+// ===================================
+// inner for pc
+@mixin pcInner($width: 1340) {
+  max-width: #{$width}px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  @include mq {
+    max-width: 100%;
+  }
+}
+
+// inner for sp
+@mixin spInner($width: 100%) {
+  max-width: #{$width};
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// ===================================
+// indent
+// ===================================
+@mixin indentReset {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@mixin indent01 {
+  margin-left: 30px;
+  margin-right: 30px;
+  @include mq {
+    @include indentReset;
+  }
+}
+@mixin indent02 {
+  margin-left: 20px;
+  margin-right: 20px;
+  @include mq {
+    @include indentReset;
+  }
+}
+@mixin indent03 {
+  margin-left: 15px;
+  margin-right: 15px;
+  @include mq {
+    @include indentReset;
+  }
+}
+
+// ===================================
+// image
+// ===================================
+// imageItem
+@mixin imageItem {
+  font-size: 0;
+  line-height: 0;
+}
+
+// imageObject
+@mixin imageObject {
+  width: 100%;
+  height: auto;
+}
+
+// ===================================
+// font family
+// ===================================
+// font-family
+@mixin fontSansSerif {
+  font-family: 'PostGrotesk Book', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Helvetica, 'Hiragino Kaku Gothic ProN', 'メイリオ', 'Meiryo', sans-serif;
+}
+
+// ===================================
+// font settings
+// ===================================
+@mixin fontExLarge {
+  font-size: 32px;
+  @include mq {
+    font-size: 24px;
+  }
+}
+@mixin fontLarge {
+  font-size: 24px;
+  @include mq {
+    font-size: 18px;
+  }
+}
+@mixin fontMedium {
+  font-size: 16px;
+  @include mq {
+    font-size: 14px;
+  }
+}
+@mixin fontSmall {
+  font-size: 14px;
+  @include mq {
+    font-size: 12px;
+  }
+}
+
+// letter-spacing
+@mixin ls015 {
+  letter-spacing: .015em;
+}
+@mixin ls03 {
+  letter-spacing: .03em;
+}
+
+// fontSmooth
+@mixin fontSmooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// letterSpace
+@mixin letterSpace {
+  text-rendering: optimizeLegibility;
+  font-feature-settings : "palt";
+}
+
+// english text br
+@mixin enTextBr {
+  word-break: break-all;
+}
+
+// ===================================
+// hover
+// ===================================
+@mixin hover($opacity: .8) {
+  transition: opacity .2s $easeInOutSine;
+  &:hover {
+    opacity: $opacity;
+  }
+  @include mq {
+    transition: none;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// ===================================
+// animation
+// ===================================
+@mixin anime ($animeProperty: all, $animeSpeed: .3s) {
+  transition: $animeProperty $animeSpeed $easeInOutSine;
+}
+// .testing {
+//   @include anime(background,1s);
+// }

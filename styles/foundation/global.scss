@@ -1,0 +1,27 @@
+@import './variables.scss';
+@import './mixin.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  background: $white_01;
+  line-height: 100%;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+  @include fontSansSerif;
+  @include fontSmooth;
+  @include letterSpace;
+  @include ls03;
+  @include mq {
+    @include ls015;
+  }
+}
+
+.wrapper {
+  @include pcInner;
+  margin: 60px 0 120px;
+  @include mq {
+    @include spInner;
+    margin: 30px 0 60px;
+  }
+}

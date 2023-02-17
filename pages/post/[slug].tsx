@@ -5,7 +5,7 @@ import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
 import nl2br from 'react-nl2br'
-import styles from '@/styles/Post.module.scss'
+import styles from '@/styles/page/Post.module.scss'
 
 // export default function Home({ posts }: { posts: Post[] }) {
 export default function Post({ post, posts }: { post: Post, posts: Post[] }) {

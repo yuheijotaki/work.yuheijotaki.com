@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import nl2br from 'react-nl2br'
-import variables from '@/styles/variables.module.scss';
-import styles from '@/styles/Posts.module.scss'
+// import variables from '@/styles/variables.scss';
+import styles from '@/styles/components/Posts.module.scss'
 
 export default function Posts({ posts, current }: { posts: Post[], current: string }) {
   let detectCurrent = (post: Post) => {
@@ -16,7 +16,8 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
       )
     } else {
       return (
-        <Link href={`/post/${post.slug}`} style={{ color: variables.primaryColor }}>
+        // <Link href={`/post/${post.slug}`} style={{ color: variables.primaryColor }}>
+        <Link href={`/post/${post.slug}`}>
           <p className={styles.test}>{post.title}</p>
           <img src={post.thumbnail.src} alt={post.title} width="200" />
           {/* <p>{nl2br(post.titleCustom)}</p>

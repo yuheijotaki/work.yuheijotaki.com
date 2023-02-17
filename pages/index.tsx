@@ -3,7 +3,7 @@ import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
-import styles from '@/styles/Home.module.scss'
+import styles from '@/styles/page/Home.module.scss'
 
 export default function Home({ posts }: { posts: Post[] }) {
   const metaTitle = process.env.siteName
@@ -32,7 +32,7 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Head>
       <Header>
       </Header>
-      <main className={styles.main}>
+      <main className={styles.test}>
         <Posts current='' posts={ posts }></Posts>
       </main>
     </>
