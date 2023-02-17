@@ -16,7 +16,9 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
               height={post.thumbnail.height}
               alt={post.title}
               quality={60}
-            />
+              priority={true}
+              unoptimized
+          />
           </p>
           <section className="content">
             <h3 className={styles['title']}>{post.title}</h3>
@@ -37,6 +39,8 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
               height={post.thumbnail.height}
               alt={post.title}
               quality={60}
+              priority={true}
+              unoptimized
             />
           </p>
           <section className="content">
