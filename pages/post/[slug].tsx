@@ -90,7 +90,11 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         </ul>
       </section>
       <section className={styles['works']}>
-        <Posts current={post.slug} posts={posts}></Posts>
+        <Posts
+          current={post.slug}
+          posts={posts}
+          filter='All'
+        ></Posts>
       </section>
       <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>
     </>
