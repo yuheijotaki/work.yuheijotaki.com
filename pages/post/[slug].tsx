@@ -9,7 +9,6 @@ import Header from '@/components/header'
 import Posts from '@/components/posts'
 import styles from '@/styles/page/Post.module.scss'
 
-// export default function Home({ posts }: { posts: Post[] }) {
 export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
   const metaTitle = `${post.title} | ${process.env.siteName}`
   const metaDescription = `${post.title} Webサイトの構築事例紹介です。`

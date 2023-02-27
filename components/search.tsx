@@ -12,7 +12,7 @@ export default function Search<Props>({
     handleClick
   }: {
     children: ReactNode,
-    category?: String | 'aaaaa',
+    category?: String | 'All',
     current: boolean[],
     handleClick?: any
   }) {
