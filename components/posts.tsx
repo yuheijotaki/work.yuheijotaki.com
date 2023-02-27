@@ -4,7 +4,15 @@ import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import styles from '@/styles/components/Posts.module.scss'
 
-export default function Posts({ posts, current }: { posts: Post[], current: string }) {
+export default function Posts({
+    posts,
+    current,
+    filter
+  }: {
+    posts: Post[],
+    current: string,
+    filter: string,
+  }) {
   let detectCurrent = (post: Post) => {
     if (current === post.slug) {
       return (
@@ -55,10 +63,19 @@ export default function Posts({ posts, current }: { posts: Post[], current: stri
     }
   }
 
+  let filterPosts = posts.filter(function (post) {
+    let isShow = false
+    post.categories.map((thisCategory) => {
+      if (filter === thisCategory.name) isShow = true
+    })
+    if (filter === 'All') isShow = true
+    return isShow
+  })
+
   return (
     <>
       <ul className={styles['posts']}>
-        {posts.map((post) => {
+        {filterPosts.map((post) => {
           return (
             <li key={post._id} className={styles['posts__item']}>
               {detectCurrent(post)}

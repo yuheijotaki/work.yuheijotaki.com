@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import Head from 'next/head'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
@@ -14,6 +15,29 @@ export default function Home({ posts }: { posts: Post[] }) {
   const metaImage = `${process.env.siteUrl}${process.env.ogImage}`
   const metaType = 'website'
   const metaCard = process.env.metaCard
+
+  let [category, setCategory] = useState('All')
+  let [current, setCurrent] = useState([true, false, false, false, false])
+  const handleClick = useCallback((e: any) => {
+    let clicked = e.target.innerHTML
+    if (clicked === 'All') {
+      setCategory(category = 'All')
+      setCurrent(current = [true, false, false, false, false])
+    } else if (clicked === 'Front-end') {
+      setCategory(category = 'Front-end')
+      setCurrent(current = [false, true, false, false, false])
+    } else if (clicked === 'WordPress') {
+      setCategory(category = 'WordPress')
+      setCurrent(current = [false, false, true, false, false])
+    } else if (clicked === 'Web Design') {
+      setCategory(category = 'Web Design')
+      setCurrent(current = [false, false, false, true, false])
+    } else if (clicked === 'Tumblr') {
+      setCategory(category = 'Tumblr')
+      setCurrent(current = [false, false, false, false, true])
+    }
+  }, [])
+
   return (
     <>
       <Head>
@@ -33,10 +57,18 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Head>
       <Header>
       </Header>
-      <Search>
+      <Search
+        category={category}
+        current={current}
+        handleClick={handleClick}
+      >
       </Search>
       <section className={styles.works}>
-        <Posts current='' posts={ posts }></Posts>
+        <Posts
+          current=''
+          posts={posts}
+          filter={category}
+        ></Posts>
       </section>
     </>
   )
