@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import Header from '@/components/header'
+import Search from '@/components/search'
 import Posts from '@/components/posts'
 import styles from '@/styles/page/Home.module.scss'
 
@@ -32,6 +33,8 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Head>
       <Header>
       </Header>
+      <Search>
+      </Search>
       <section className={styles.works}>
         <Posts current='' posts={ posts }></Posts>
       </section>
