@@ -29,7 +29,7 @@ export default function Posts({
           />
           </p>
           <section className="content">
-            <h3 className={styles['title']}>{post.title}</h3>
+            <h2 className={styles['title']}>{post.title}</h2>
             <div className={styles['meta']}>
               <p className={styles['date']}>{post.date}</p>
               <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
@@ -52,7 +52,7 @@ export default function Posts({
             />
           </p>
           <section className="content">
-            <h3 className={styles['title']}>{post.title}</h3>
+            <h2 className={styles['title']}>{post.title}</h2>
             <div className={styles['meta']}>
               <p className={styles['date']}>{post.date}</p>
               <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>

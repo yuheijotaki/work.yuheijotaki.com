@@ -18,8 +18,8 @@ export default function Home({ posts }: { posts: Post[] }) {
 
   let [category, setCategory] = useState('All')
   let [current, setCurrent] = useState([true, false, false, false, false])
-  const handleClick = useCallback((e: any) => {
-    let clicked = e.target.innerHTML
+  const handleClick = useCallback((event: any) => {
+    let clicked = event.target.innerHTML
     if (clicked === 'All') {
       setCategory(category = 'All')
       setCurrent(current = [true, false, false, false, false])
