@@ -79,9 +79,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
                   width={object.width}
                   height={object.height}
                   alt={object.title}
-                  quality={60}
                   priority={true}
-                  unoptimized
                 />
               </li>
             )
