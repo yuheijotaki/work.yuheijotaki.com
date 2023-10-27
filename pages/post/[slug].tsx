@@ -74,12 +74,14 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
           {post.images.map((object, index) => {
             return (
               <li key={index}>
-                <Image
+                <img
                   src={object.src}
                   width={object.width}
                   height={object.height}
                   alt={object.title}
-                  priority={true}
+                  // quality={60}
+                  // priority={true}
+                  // unoptimized
                 />
               </li>
             )
