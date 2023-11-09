@@ -33,10 +33,17 @@ button:focus {
 }
 
 // NProgress
+.nprogress-busy {
+  cursor: progress;
+  a:hover {
+    cursor: progress;
+  }
+}
 body {
   #nprogress .bar {
-    background: rgba(0,0,0,.1);
-    height: 100vh;
+    // background: rgba(0,0,0,.1);
+    // height: 100vh;
+    background: none;
   }
   #nprogress .peg {
     transform: none;
