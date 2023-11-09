@@ -1,3 +1,13 @@
+## URL
+https://works.yuheijotaki.com/
+
+## ブログ
+- [Newt + Next.js + Vercel でポートフォリオサイトを作る](https://jtk.hatenablog.com/entry/2023/02/28/115544)
+- [@next/font でローカルフォントを扱う](https://jtk.hatenablog.com/entry/2023/02/27/102322)
+- [Next.js マークアップ観点の勘所](https://jtk.hatenablog.com/entry/2023/02/17/224115)
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
