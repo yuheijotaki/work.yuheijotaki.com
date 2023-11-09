@@ -16,7 +16,7 @@ export default function Home({ posts }: { posts: Post[] }) {
   const metaType = 'website'
   const metaCard = process.env.metaCard
 
-  let [category, setCategory] = useState('All')
+  let [category, setCategory] = useState('Front-end')
   let [current, setCurrent] = useState([true, false, false, false])
   const handleClick = useCallback((event: any) => {
     let clicked = event.target.innerHTML

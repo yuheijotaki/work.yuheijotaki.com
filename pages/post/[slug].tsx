@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/newt'
 import { createGlobalStyle } from 'styled-components'
 import nl2br from 'react-nl2br'
@@ -92,7 +91,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         <Posts
           current={post.slug}
           posts={posts}
-          filter='All'
+          filter='Front-end'
         ></Posts>
       </section>
       <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>

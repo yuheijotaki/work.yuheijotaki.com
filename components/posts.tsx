@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import styles from '@/styles/components/Posts.module.scss'
@@ -18,15 +17,15 @@ export default function Posts({
       return (
         <span className={`${styles['anchor']} ${styles['is-text']}`}>
           <p className={styles['image']}>
-            <Image
+            <img
               src={post.thumbnail.src}
               width={post.thumbnail.width}
               height={post.thumbnail.height}
               alt={post.title}
-              quality={60}
-              priority={true}
-              unoptimized
-          />
+              // quality={60}
+              // priority={true}
+              // unoptimized
+            />
           </p>
           <section className="content">
             <h2 className={styles['title']}>{post.title}</h2>
@@ -41,14 +40,14 @@ export default function Posts({
       return (
         <Link href={`/post/${post.slug}`} className={`${styles['anchor']} ${styles['is-link']}`}>
           <p className={styles['image']}>
-            <Image
+            <img
               src={post.thumbnail.src}
               width={post.thumbnail.width}
               height={post.thumbnail.height}
               alt={post.title}
-              quality={60}
-              priority={true}
-              unoptimized
+              // quality={60}
+              // priority={true}
+              // unoptimized
             />
           </p>
           <section className="content">
@@ -68,7 +67,7 @@ export default function Posts({
     post.categories.map((thisCategory) => {
       if (filter === thisCategory.name) isShow = true
     })
-    if (filter === 'All') isShow = true
+    if (filter === 'Front-end') isShow = true
     return isShow
   })
 
