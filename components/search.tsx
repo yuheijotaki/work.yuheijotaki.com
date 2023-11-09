@@ -20,7 +20,7 @@ export default function Search<Props>({
   return (
     <>
       <section className={styles['search']}>
-        <h2 className={styles['search__title']}>Filter</h2>
+        <h2 className={styles['search__title']}>Filter:</h2>
         <ul className={styles['search__list']}>
           <li className={styles['search__item']}>
             <button className={current[0] ? styles['is-current'] : ''} onClick={handleClick}>Front-end</button>

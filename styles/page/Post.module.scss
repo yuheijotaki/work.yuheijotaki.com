@@ -53,7 +53,7 @@ $color_text: var(--color-text);
       }
       &:hover {
         color: $black_01;
-        background: $gray_01;
+        background: $gray_02;
         span {
           color: $black_01;
         }
@@ -135,7 +135,7 @@ $color_text: var(--color-text);
       padding: 5px 15px;
     }
     &:hover {
-      background: $gray_01;
+      background: $gray_02;
       @include mq {
         background: none;
       }

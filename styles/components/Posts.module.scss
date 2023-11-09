@@ -26,7 +26,7 @@
 .is-link {
   color: $black_01;
   &:hover {
-    background: $gray_01;
+    background: $gray_02;
     @include mq {
       background: none;
     }

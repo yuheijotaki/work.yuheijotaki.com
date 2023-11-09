@@ -17,7 +17,7 @@
   display: inline-block;
   padding: 15px 30px;
   &:hover {
-    background: $gray_01;
+    background: $gray_02;
     @include mq {
       background: none;
     }

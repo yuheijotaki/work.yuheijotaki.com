@@ -51,7 +51,7 @@
       padding: 5px 6px;
     }
     &:hover {
-      background: $gray_01;
+      background: $gray_02;
       cursor: pointer;
       @include mq {
         background: none;
@@ -59,7 +59,7 @@
     }
     &.is-current {
       // color: $white_01;
-      background: $gray_01;
+      background: $gray_02;
       text-decoration: none;
     }
   }
