@@ -17,24 +17,21 @@ export default function Home({ posts }: { posts: Post[] }) {
   const metaCard = process.env.metaCard
 
   let [category, setCategory] = useState('All')
-  let [current, setCurrent] = useState([true, false, false, false, false])
+  let [current, setCurrent] = useState([true, false, false, false])
   const handleClick = useCallback((event: any) => {
     let clicked = event.target.innerHTML
-    if (clicked === 'All') {
-      setCategory(category = 'All')
-      setCurrent(current = [true, false, false, false, false])
-    } else if (clicked === 'Front-end') {
+    if (clicked === 'Front-end') {
       setCategory(category = 'Front-end')
-      setCurrent(current = [false, true, false, false, false])
+      setCurrent(current = [true, false, false, false])
     } else if (clicked === 'WordPress') {
       setCategory(category = 'WordPress')
-      setCurrent(current = [false, false, true, false, false])
+      setCurrent(current = [false, true, false, false])
     } else if (clicked === 'Web Design') {
       setCategory(category = 'Web Design')
-      setCurrent(current = [false, false, false, true, false])
+      setCurrent(current = [false, false, true, false])
     } else if (clicked === 'Tumblr') {
       setCategory(category = 'Tumblr')
-      setCurrent(current = [false, false, false, false, true])
+      setCurrent(current = [false, false, false, true])
     }
   }, [])
 

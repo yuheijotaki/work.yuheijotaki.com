@@ -12,10 +12,6 @@
   width: 50%;
   @include mq {
     width: 100%;
-    margin-top: 30px;
-    &:first-child {
-      margin-top: 0;
-    }
   }
 }
 
@@ -24,7 +20,7 @@
   text-decoration: none;
   padding: 30px;
   @include mq {
-    padding: 0;
+    padding: 15px;
   }
 }
 .is-link {

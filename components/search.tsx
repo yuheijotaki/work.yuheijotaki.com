@@ -12,7 +12,7 @@ export default function Search<Props>({
     handleClick
   }: {
     children: ReactNode,
-    category?: String | 'All',
+    category?: String | 'Front-end',
     current: boolean[],
     handleClick?: any
   }) {
@@ -23,19 +23,16 @@ export default function Search<Props>({
         <h2 className={styles['search__title']}>Filter</h2>
         <ul className={styles['search__list']}>
           <li className={styles['search__item']}>
-            <span className={current[0] ? styles['is-current'] : ''} onClick={handleClick}>All</span>
+            <button className={current[0] ? styles['is-current'] : ''} onClick={handleClick}>Front-end</button>
           </li>
           <li className={styles['search__item']}>
-            <span className={current[1] ? styles['is-current'] : ''} onClick={handleClick}>Front-end</span>
+            <button className={current[1] ? styles['is-current'] : ''} onClick={handleClick}>WordPress</button>
           </li>
           <li className={styles['search__item']}>
-            <span className={current[2] ? styles['is-current'] : ''} onClick={handleClick}>WordPress</span>
+            <button className={current[2] ? styles['is-current'] : ''} onClick={handleClick}>Web Design</button>
           </li>
           <li className={styles['search__item']}>
-            <span className={current[3] ? styles['is-current'] : ''} onClick={handleClick}>Web Design</span>
-          </li>
-          <li className={styles['search__item']}>
-            <span className={current[4] ? styles['is-current'] : ''} onClick={handleClick}>Tumblr</span>
+            <button className={current[3] ? styles['is-current'] : ''} onClick={handleClick}>Tumblr</button>
           </li>
         </ul>
       </section>

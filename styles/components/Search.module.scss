@@ -7,7 +7,7 @@
   align-items: center;
   @include indent01;
   @include mq {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 }
 
@@ -39,7 +39,7 @@
   @include mq(spMin) {
     font-size: 11px;
   }
-  span {
+  button {
     color: $black_01;
     text-decoration: none;
     display: inline-block;
@@ -58,7 +58,7 @@
       }
     }
     &.is-current {
-      color: $white_01;
+      // color: $white_01;
       background: $gray_01;
       text-decoration: none;
     }
