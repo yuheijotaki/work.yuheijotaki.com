@@ -7,8 +7,17 @@ import Router from 'next/router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 Router.events.on('routeChangeStart', () => NProgress.start())
-Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeComplete', () => {
+  NProgress.done()
+  handleRouteChange()
+})
 Router.events.on('routeChangeError', () => NProgress.done())
+
+const handleRouteChange = () => {
+  console.log('handleRouteChange')
+  const body = document.querySelector('body')
+  body?.focus()
+}
 
 // local Fonts
 import localFont from '@next/font/local'

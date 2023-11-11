@@ -26,15 +26,15 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
   let detectUrl = () => {
     if (post.notAvailable) {
       return (
-        <p className={styles['url']}><span><s>{post.url}</s> &nbsp;(not available)</span></p>
+        <span><s>{post.url}</s> &nbsp;(not available)</span>
       )
     } else if (post.archive) {
       return (
-        <p className={styles['url']}><a href={post.url} target="_blank" rel="noreferrer">{post.url}<span>&nbsp;(archive)</span></a></p>
+        <a href={post.url} target="_blank" rel="noreferrer">{post.url}<span>&nbsp;(archive)</span></a>
       )
       } else {
       return (
-        <p className={styles['url']}><a href={post.url} target="_blank" rel="noreferrer">{post.url}</a></p>
+        <a href={post.url} target="_blank" rel="noreferrer">{post.url}</a>
       )
     }
   }
@@ -59,42 +59,46 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
       </Head>
       <Header>
       </Header>
-      <section className={styles['post']}>
-        <h2 className={styles['title']}>{post.title}</h2>
-        <div className={styles['meta']}>
-          <p className={styles['date']}>{post.date}</p>
-          <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
-          {detectUrl()}
-        </div>
-        <div className={styles['credit']}>
-          <p>{nl2br(post.credit)}</p>
-        </div>
-        <ul className={styles['capture']}>
-          {post.images.map((object, index) => {
-            return (
-              <li key={index}>
-                <img
-                  src={object.src}
-                  width={object.width}
-                  height={object.height}
-                  alt={object.title}
-                  // quality={60}
-                  // priority={true}
-                  // unoptimized
-                />
-              </li>
-            )
-          })}
-        </ul>
-      </section>
-      <section className={styles['works']}>
-        <Posts
-          current={post.slug}
-          posts={posts}
-          filter='Front-end'
-        ></Posts>
-      </section>
-      <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>
+      <main>
+        <section className={styles['post']}>
+          <h2 className={styles['title']}>{post.title}</h2>
+          <dl className={styles['meta']}>
+            <dt>Date:</dt>
+            <dd>{post.date}</dd>
+            <dt>Category:</dt>
+            <dd>{post.categories.map((object: { name: string }) => object.name).join(', ')}</dd>
+          </dl>
+          <p className={styles['url']}>{detectUrl()}</p>
+          <div className={styles['credit']}>
+            <p>{nl2br(post.credit)}</p>
+          </div>
+          <ul className={styles['capture']}>
+            {post.images.map((object, index) => {
+              return (
+                <li key={index}>
+                  <img
+                    src={object.src}
+                    width={object.width}
+                    height={object.height}
+                    alt={object.title}
+                    // quality={60}
+                    // priority={true}
+                    // unoptimized
+                  />
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+        <section className={styles['works']}>
+          <Posts
+            current={post.slug}
+            posts={posts}
+            filter='Front-end'
+          ></Posts>
+        </section>
+        <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>
+      </main>
     </>
   )
 }

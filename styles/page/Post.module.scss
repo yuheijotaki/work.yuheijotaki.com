@@ -24,61 +24,74 @@ $color_text: var(--color-text);
 
 .meta {
   @include section;
-  p {
-    margin-top: 15px;
+  color: $color_text;
+  line-height: 1;
+  display: flex;
+  flex-wrap: wrap;
+  @include fontMedium;
+  @include indent01;
+  dt,dd {
+    margin: 7px 0 7px;
+  }
+  dt {
+    flex-basis: 80px;
+  }
+  dd {
+    flex-basis: calc(100% - 80px);
+  }
+  @include mq {
+    margin-top: 20px;
+    dt,dd {
+      margin: 5px 0 5px;
+    }
+    dt {
+      display: none;
+    }
+    dd {
+      flex-basis: 100%;
+    }
+  }
+}
+
+.url {
+  @include fontMedium;
+  line-height: 1.4;
+  @include enTextBr;
+  a {
     color: $color_text;
-    line-height: 1;
-    @include fontMedium;
-    @include indent01;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 30px;
     @include mq {
-      margin-top: 10px;
+      padding: 5px 15px;
     }
-    &.url {
-      margin-top: 5px;
-      margin-left: 0;
-      margin-right: 0;
-      line-height: 1.4;
-      @include enTextBr;
-      @include mq {
-        margin-top: 5px;
-      }
-    }
-    a {
-      color: $color_text;
-      text-decoration: none;
-      display: inline-block;
-      padding: 10px 30px;
-      @include mq {
-        padding: 5px 15px;
-      }
-      &:hover {
-        color: $black_01;
-        background: $gray_02;
-        span {
-          color: $black_01;
-        }
-        @include mq {
-          color: $color_text;
-          background: none;
-          span {
-           color: $color_text;
-          }
-        }
-      }
+    &:hover {
+      color: $black_01;
+      background: $gray_02;
       span {
+        color: $black_01;
+      }
+      @include mq {
         color: $color_text;
-        display: inline;
-        padding: 0;
+        background: none;
+        span {
+        color: $color_text;
+        }
       }
     }
     span {
       color: $color_text;
-      text-decoration: none;
-      display: inline-block;
-      padding: 10px 30px;
-      @include mq {
-        padding: 5px 15px;
-      }
+      display: inline;
+      padding: 0;
+    }
+  }
+  span {
+    color: $color_text;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 30px;
+    @include mq {
+      padding: 5px 15px;
     }
   }
 }

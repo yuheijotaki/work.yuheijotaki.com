@@ -54,19 +54,21 @@ export default function Home({ posts }: { posts: Post[] }) {
       </Head>
       <Header>
       </Header>
-      <Search
-        category={category}
-        current={current}
-        handleClick={handleClick}
-      >
-      </Search>
-      <section className={styles.works}>
-        <Posts
-          current=''
-          posts={posts}
-          filter={category}
-        ></Posts>
-      </section>
+      <main>
+        <Search
+          category={category}
+          current={current}
+          handleClick={handleClick}
+        >
+        </Search>
+        <section className={styles.works}>
+          <Posts
+            current=''
+            posts={posts}
+            filter={category}
+          ></Posts>
+        </section>
+      </main>
     </>
   )
 }

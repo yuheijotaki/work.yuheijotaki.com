@@ -33,7 +33,14 @@
   }
 }
 .is-text {
-  opacity: .25;
+  opacity: .6;
+  .title,
+  .meta {
+    text-decoration: line-through;
+  }
+  &:hover {
+    cursor: not-allowed;
+  }
 }
 
 .image {
