@@ -33,14 +33,15 @@
   }
 }
 .is-text {
-  opacity: .6;
-  .title,
-  .meta {
-    text-decoration: line-through;
-  }
-  &:hover {
-    cursor: not-allowed;
-  }
+  // color: $white_01;
+  background-color: $gray_02;
+  // .title,
+  // .meta {
+  //   text-decoration: line-through;
+  // }
+  // &:hover {
+  //   cursor: not-allowed;
+  // }
 }
 
 .image {

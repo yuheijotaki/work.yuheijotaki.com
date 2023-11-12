@@ -61,6 +61,9 @@
       // color: $white_01;
       background: $gray_02;
       text-decoration: none;
+      &:hover {
+        cursor: default;
+      }
     }
   }
 }
