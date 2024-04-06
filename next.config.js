@@ -4,8 +4,8 @@ const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
   env: { // 定数
-    siteUrl: 'https://works.yuheijotaki.com/',
-    siteName: 'works.yuheijotaki.com',
+    siteUrl: 'https://work.yuheijotaki.com/',
+    siteName: 'work.yuheijotaki.com',
     ogImage: 'img/meta/ogp.png',
     metaCard: 'summary_large_image',
   },
