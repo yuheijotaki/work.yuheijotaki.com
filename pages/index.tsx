@@ -16,22 +16,23 @@ export default function Home({ posts }: { posts: Post[] }) {
   const metaType = 'website'
   const metaCard = process.env.metaCard
 
-  let [category, setCategory] = useState('Front-end')
-  let [current, setCurrent] = useState([true, false, false, false])
+  const [category, setCategory] = useState('Front-end')
+  const [current, setCurrent] = useState([true, false, false, false])
+
   const handleClick = useCallback((event: any) => {
-    let clicked = event.target.innerHTML
+    const clicked = event.target.innerHTML
     if (clicked === 'Front-end') {
-      setCategory(category = 'Front-end')
-      setCurrent(current = [true, false, false, false])
+      setCategory('Front-end')
+      setCurrent([true, false, false, false])
     } else if (clicked === 'WordPress') {
-      setCategory(category = 'WordPress')
-      setCurrent(current = [false, true, false, false])
+      setCategory('WordPress')
+      setCurrent([false, true, false, false])
     } else if (clicked === 'Web Design') {
-      setCategory(category = 'Web Design')
-      setCurrent(current = [false, false, true, false])
+      setCategory('Web Design')
+      setCurrent([false, false, true, false])
     } else if (clicked === 'Tumblr') {
-      setCategory(category = 'Tumblr')
-      setCurrent(current = [false, false, false, true])
+      setCategory('Tumblr')
+      setCurrent([false, false, false, true])
     }
   }, [])
 
@@ -52,21 +53,19 @@ export default function Home({ posts }: { posts: Post[] }) {
         <meta name="twitter:card" content={metaCard} />
         <meta name="twitter:image:src" content={metaImage} />
       </Head>
-      <Header>
-      </Header>
+      <Header />
       <main>
         <Search
           category={category}
           current={current}
           handleClick={handleClick}
-        >
-        </Search>
+        />
         <section className={styles.works}>
           <Posts
             current=''
             posts={posts}
             filter={category}
-          ></Posts>
+          />
         </section>
       </main>
     </>

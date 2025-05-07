@@ -1,22 +1,16 @@
-import { ReactNode } from 'react'
 import styles from '@/styles/components/Search.module.scss'
 
-export type Props = {
-  category: String
-};
+type SearchProps = {
+  category: string;
+  current: boolean[];
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
-export default function Search<Props>({
-    children,
-    category,
-    current,
-    handleClick
-  }: {
-    children: ReactNode,
-    category?: String | 'Front-end',
-    current: boolean[],
-    handleClick?: any
-  }) {
-
+export default function Search({
+  category,
+  current,
+  handleClick
+}: SearchProps) {
   return (
     <>
       <section className={styles['search']}>

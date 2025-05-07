@@ -2,7 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { getPosts, getPostBySlug } from '@/lib/newt'
 import { createGlobalStyle } from 'styled-components'
-import nl2br from 'react-nl2br'
 import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
@@ -70,7 +69,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
           </dl>
           <p className={styles['url']}>{detectUrl()}</p>
           <div className={styles['credit']}>
-            <p>{nl2br(post.credit)}</p>
+            <p>{post.credit}</p>
           </div>
           <ul className={styles['capture']}>
             {post.images.map((object, index) => {

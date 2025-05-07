@@ -2,6 +2,7 @@
 const path = require('path')
 
 const nextConfig = {
+  devIndicators: false,
   reactStrictMode: true,
   env: { // 定数
     siteUrl: 'https://work.yuheijotaki.com/',

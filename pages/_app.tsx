@@ -20,7 +20,7 @@ const handleRouteChange = () => {
 }
 
 // local Fonts
-import localFont from '@next/font/local'
+import localFont from 'next/font/local'
 const PostgroteskBookFont = localFont({
   src: [
     {
