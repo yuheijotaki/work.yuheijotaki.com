@@ -102,19 +102,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
   )
 }
 
-export const getStaticPaths = async () => {
-  const posts = await getPosts()
-  return {
-    paths: posts.map((post) => ({
-      params: {
-        slug: post.slug,
-      },
-    })),
-    fallback: false,
-  }
-}
-
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   params,
 }: {
   params: { slug: string }
