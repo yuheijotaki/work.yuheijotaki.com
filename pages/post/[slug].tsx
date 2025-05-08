@@ -70,7 +70,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
           </dl>
           <p className={styles['url']}>{detectUrl()}</p>
           <div className={styles['credit']}>
-            <p>{post.credit}</p>
+            <p dangerouslySetInnerHTML={{ __html: post.credit.replace(/\n/g, '<br />') }} />
           </div>
           <ul className={styles['capture']}>
             {post.images.map((object, index) => {
@@ -80,10 +80,8 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
                     src={object.src}
                     width={object.width}
                     height={object.height}
-                    alt={object.title}
-                    // quality={60}
-                    // priority={true}
-                    // unoptimized
+                    alt=''
+                    quality={60}
                   />
                 </li>
               )

@@ -22,10 +22,8 @@ export default function Posts({
               src={post.thumbnail.src}
               width={post.thumbnail.width}
               height={post.thumbnail.height}
-              alt={post.title}
-              // quality={60}
-              // priority={true}
-              // unoptimized
+              alt=''
+              quality={60}
             />
           </p>
           <section className="content">
@@ -45,10 +43,8 @@ export default function Posts({
               src={post.thumbnail.src}
               width={post.thumbnail.width}
               height={post.thumbnail.height}
-              alt={post.title}
-              // quality={60}
-              // priority={true}
-              // unoptimized
+              alt=''
+              quality={60}
             />
           </p>
           <section className="content">
