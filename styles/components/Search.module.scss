@@ -1,5 +1,5 @@
-@import './../foundation/variables.scss';
-@import './../foundation/mixin.scss';
+@use './../foundation/variables.scss' as *;
+@use './../foundation/mixin.scss' as *;
 
 .search {
   margin-top: 60px;
@@ -34,10 +34,10 @@
 .search__item {
   color: $black_01;
   @include mq {
-    font-size: 13px;
+    font-size: 1.3rem;
   }
   @include mq(spMin) {
-    font-size: 11px;
+    font-size: 1.1rem;
   }
   button {
     color: $black_01;

@@ -1,5 +1,5 @@
-@import './../foundation/variables.scss';
-@import './../foundation/mixin.scss';
+@use './../foundation/variables' as *;
+@use './../foundation/mixin' as *;
 
 .posts {
   list-style: none;

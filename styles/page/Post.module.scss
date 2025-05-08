@@ -1,5 +1,5 @@
-@import './../foundation/variables.scss';
-@import './../foundation/mixin.scss';
+@use './../foundation/variables.scss' as *;
+@use './../foundation/mixin.scss' as *;
 
 $color_text: var(--color-text);
 
@@ -23,11 +23,11 @@ $color_text: var(--color-text);
 }
 
 .meta {
-  @include section;
   color: $color_text;
   line-height: 1;
   display: flex;
   flex-wrap: wrap;
+  @include section;
   @include fontMedium;
   @include indent01;
   dt,dd {
@@ -54,8 +54,8 @@ $color_text: var(--color-text);
 }
 
 .url {
-  @include fontMedium;
   line-height: 1.4;
+  @include fontMedium;
   @include enTextBr;
   a {
     color: $color_text;
@@ -111,9 +111,9 @@ $color_text: var(--color-text);
   list-style: none;
   @include indent01;
   li {
-    @include imageItem;
     max-width: 500px;
     margin-top: 30px;
+    @include imageItem;
     &:first-child {
       margin-top: 0;
     }
@@ -122,9 +122,9 @@ $color_text: var(--color-text);
     }
   }
   img {
-    @include imageObject;
     max-width: 100%;
     height: auto;
+    @include imageObject;
   }
 }
 

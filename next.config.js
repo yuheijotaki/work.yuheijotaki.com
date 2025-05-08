@@ -4,17 +4,17 @@ const path = require('path')
 const nextConfig = {
   devIndicators: false,
   reactStrictMode: true,
-  env: { // 定数
+  env: {
     siteUrl: 'https://work.yuheijotaki.com/',
     siteName: 'work.yuheijotaki.com',
     ogImage: 'img/meta/ogp.png',
     metaCard: 'summary_large_image',
   },
-  trailingSlash: true, // URL末尾にスラッシュを追加
-  sassOptions: {  // Sass（SCSS）を使用
+  trailingSlash: true,
+  sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  images: { // next/image で外部画像を参照
+  images: {
     domains: ['storage.googleapis.com'],
   },
 }

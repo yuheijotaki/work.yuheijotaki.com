@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/newt'
 import { createGlobalStyle } from 'styled-components'
 import type { Post } from '@/types/post'
@@ -75,7 +76,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
             {post.images.map((object, index) => {
               return (
                 <li key={index}>
-                  <img
+                  <Image
                     src={object.src}
                     width={object.width}
                     height={object.height}

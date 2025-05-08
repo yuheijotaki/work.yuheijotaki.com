@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { getPosts } from '@/lib/newt'
+import Image from 'next/image'
+// import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import styles from '@/styles/components/Posts.module.scss'
 
@@ -17,7 +18,7 @@ export default function Posts({
       return (
         <span className={`${styles['anchor']} ${styles['is-text']}`}>
           <p className={styles['image']}>
-            <img
+            <Image
               src={post.thumbnail.src}
               width={post.thumbnail.width}
               height={post.thumbnail.height}
@@ -40,7 +41,7 @@ export default function Posts({
       return (
         <Link href={`/post/${post.slug}`} className={`${styles['anchor']} ${styles['is-link']}`}>
           <p className={styles['image']}>
-            <img
+            <Image
               src={post.thumbnail.src}
               width={post.thumbnail.width}
               height={post.thumbnail.height}

@@ -1,5 +1,7 @@
-@import './variables.scss';
-@import './mixin.scss';
+@use 'variables' as *;
+@use './mixin.scss' as *;
+
+html { font-size: 62.5%; }
 
 body {
   margin: 0;
@@ -24,15 +26,17 @@ button:focus {
 }
 
 .wrapper {
-  @include pcInner;
   margin-left: 0;
   margin-right: 0;
   padding-top: 60px;
   padding-bottom: 120px;
+  max-width: 1340px;
+  padding-left: 30px;
+  padding-right: 30px;
   @include mq {
-    @include spInner;
     padding-top: 20px;
     padding-bottom: 60px;
+    @include spInner;
   }
 }
 
@@ -43,6 +47,7 @@ button:focus {
     cursor: progress;
   }
 }
+
 body {
   #nprogress .bar {
     // background: rgba(0,0,0,.1);
