@@ -5,65 +5,65 @@
   margin-top: 60px;
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
   @include indent01;
   @include mq {
     margin-top: 15px;
   }
 }
 
-.search__list {
-  display: flex;
-  list-style: none;
-}
-
-.search__title,
-.search__item {
-  line-height: 1;
-  @include fontMedium;
+.search__header {
 }
 
 .search__title {
   color: $gray_01;
   font-weight: normal;
   margin-right: 15px;
+  line-height: 1;
+  @include fontMedium;
   @include mq {
     display: none;
   }
 }
 
+.search__list {
+  display: flex;
+}
+
 .search__item {
   color: $black_01;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 15px;
+  line-height: 1;
+  border: none;
+  background: none;
+  cursor: pointer;
+  @include fontMedium;
+
   @include mq {
     font-size: 1.3rem;
+    padding: 6px 8px;
   }
+
   @include mq(spMin) {
     font-size: 1.1rem;
+    padding: 5px 6px;
   }
-  button {
-    color: $black_01;
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px 15px;
+
+  &:hover {
+    background: $gray_02;
     @include mq {
-      padding: 6px 8px;
+      background: none;
     }
-    @include mq(spMin) {
-      padding: 5px 6px;
-    }
+  }
+
+  &.is-current {
+    background: $gray_02;
+    cursor: default;
+
     &:hover {
       background: $gray_02;
-      cursor: pointer;
-      @include mq {
-        background: none;
-      }
-    }
-    &.is-current {
-      // color: $white_01;
-      background: $gray_02;
-      text-decoration: none;
-      &:hover {
-        cursor: default;
-      }
     }
   }
 }

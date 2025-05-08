@@ -57,11 +57,10 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
         <meta name="twitter:card" content={metaCard} />
         <meta name="twitter:image:src" content={metaImage} />
       </Head>
-      <Header>
-      </Header>
+      <Header isTopPage={false} />
       <main>
         <section className={styles['post']}>
-          <h2 className={styles['title']}>{post.title}</h2>
+          <h1 className={styles['title']}>{post.title}</h1>
           <dl className={styles['meta']}>
             <dt>Date:</dt>
             <dd>{post.date}</dd>
@@ -88,13 +87,13 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
             })}
           </ul>
         </section>
-        <section className={styles['works']}>
+        <aside className={styles['works']} aria-label="関連投稿">
           <Posts
             current={post.slug}
             posts={posts}
             filter='Front-end'
           ></Posts>
-        </section>
+        </aside>
         <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>
       </main>
     </>

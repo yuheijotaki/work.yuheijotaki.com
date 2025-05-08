@@ -1,10 +1,27 @@
 import Link from 'next/link'
 import styles from '@/styles/components/Header.module.scss'
 
-export default function Header() {
+type HeaderProps = {
+  onLogoClick?: () => void;
+  isTopPage?: boolean;
+}
+
+export default function Header({ onLogoClick, isTopPage = false }: HeaderProps) {
+  const LogoWrapper = isTopPage ? 'h1' : 'div';
+
   return (
     <>
-      <h1 className={styles['logo']}><Link href={'/'} className={styles['anchor']}>{process.env.siteName}</Link></h1>
+      <header>
+        <LogoWrapper className={styles['logo']}>
+          <Link
+            href={'/'}
+            className={styles['anchor']}
+            onClick={onLogoClick}
+          >
+            {process.env.siteName}
+          </Link>
+        </LogoWrapper>
+      </header>
     </>
   )
 }

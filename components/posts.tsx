@@ -26,13 +26,13 @@ export default function Posts({
               quality={60}
             />
           </p>
-          <section className="content">
-            <h2 className={styles['title']}>{post.title}</h2>
+          <div className="content">
+            <p className={styles['title']}>{post.title}</p>
             <div className={styles['meta']}>
               <p className={styles['date']}>{post.date}</p>
               <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
             </div>
-          </section>
+          </div>
         </span>
       )
     } else {
@@ -47,13 +47,13 @@ export default function Posts({
               quality={60}
             />
           </p>
-          <section className="content">
-            <h2 className={styles['title']}>{post.title}</h2>
+          <div className="content">
+            <p className={styles['title']}>{post.title}</p>
             <div className={styles['meta']}>
               <p className={styles['date']}>{post.date}</p>
               <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
             </div>
-          </section>
+          </div>
         </Link>
       )
     }
