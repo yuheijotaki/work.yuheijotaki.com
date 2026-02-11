@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-// import { getPosts } from '@/lib/newt'
 import type { Post } from '@/types/post'
 import styles from '@/styles/components/Posts.module.scss'
 
@@ -19,9 +18,9 @@ export default function Posts({
         <span className={`${styles.anchor} ${styles['is-text']}`}>
           <p className={styles.image}>
             <Image
-              src={post.thumbnail.src}
-              width={post.thumbnail.width}
-              height={post.thumbnail.height}
+              src={post.thumbnail?.url || ''}
+              width={post.thumbnail?.width || 640}
+              height={post.thumbnail?.height || 420}
               alt=''
               quality={60}
             />
@@ -30,7 +29,7 @@ export default function Posts({
             <p className={styles.title}>{post.title}</p>
             <div className={styles.meta}>
               <p className={styles.date}>{post.date}</p>
-              <p className={styles.category}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+              <p className={styles.category}>{post.category.map((object: { title: string }) => object.title).join(', ')}</p>
             </div>
           </div>
         </span>
@@ -40,9 +39,9 @@ export default function Posts({
         <Link href={`/post/${post.slug}`} className={`${styles.anchor} ${styles['is-link']}`}>
           <p className={styles.image}>
             <Image
-              src={post.thumbnail.src}
-              width={post.thumbnail.width}
-              height={post.thumbnail.height}
+              src={post.thumbnail?.url || ''}
+              width={post.thumbnail?.width || 640}
+              height={post.thumbnail?.height || 420}
               alt=''
               quality={60}
             />
@@ -51,7 +50,7 @@ export default function Posts({
             <p className={styles.title}>{post.title}</p>
             <div className={styles.meta}>
               <p className={styles.date}>{post.date}</p>
-              <p className={styles.category}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+              <p className={styles.category}>{post.category.map((object: { title: string }) => object.title).join(', ')}</p>
             </div>
           </div>
         </Link>
@@ -61,8 +60,8 @@ export default function Posts({
 
   const filterPosts = posts.filter(function (post) {
     let isShow = false
-    post.categories.map((thisCategory) => {
-      if (filter === thisCategory.name) isShow = true
+    post.category.map((thisCategory) => {
+      if (filter === thisCategory.title) isShow = true
     })
     if (filter === 'Front-end') isShow = true
     return isShow
@@ -73,7 +72,7 @@ export default function Posts({
       <ul className={styles.posts}>
         {filterPosts.map((post) => {
           return (
-            <li key={post._id} className={styles.posts__item}>
+            <li key={post.id} className={styles.posts__item}>
               {detectCurrent(post)}
             </li>
           )

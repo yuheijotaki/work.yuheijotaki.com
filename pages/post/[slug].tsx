@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getPosts, getPostBySlug } from '@/lib/newt'
+import { getPosts, getPostBySlug } from '@/lib/microcms'
 import { createGlobalStyle } from 'styled-components'
 import type { Post } from '@/types/post'
 import Header from '@/components/header'
@@ -13,7 +13,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
   const metaDescription = `${post.title} Webサイトの構築事例紹介です。`
   const metaPageUrl = `${process.env.siteUrl}post/${post.slug}/`
   const metaSiteName = process.env.siteName
-  const metaImage = post.thumbnail.src
+  const metaImage = post.thumbnail?.url || ''
   const metaType = 'article'
   const metaCard = process.env.metaCard
 
@@ -65,18 +65,20 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
             <dt>Date:</dt>
             <dd>{post.date}</dd>
             <dt>Category:</dt>
-            <dd>{post.categories.map((object: { name: string }) => object.name).join(', ')}</dd>
+            <dd>{post.category.map((object: { title: string }) => object.title).join(', ')}</dd>
           </dl>
           <p className={styles.url}>{detectUrl()}</p>
-          <div className={styles.credit}>
-            <p dangerouslySetInnerHTML={{ __html: post.credit.replace(/\n/g, '<br />') }} />
-          </div>
+          {post.credit && (
+            <div className={styles.credit}>
+              <p dangerouslySetInnerHTML={{ __html: post.credit.replace(/\n/g, '<br />') }} />
+            </div>
+          )}
           <ul className={styles.capture}>
-            {post.images.map((object, index) => {
+            {post.images?.map((object, index) => {
               return (
                 <li key={index}>
                   <Image
-                    src={object.src}
+                    src={object.url}
                     width={object.width}
                     height={object.height}
                     alt=''

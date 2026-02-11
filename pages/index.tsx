@@ -1,6 +1,6 @@
 import { useCallback, useState, KeyboardEvent, useRef } from 'react'
 import Head from 'next/head'
-import { getPosts } from '@/lib/newt'
+import { getPosts } from '@/lib/microcms'
 import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Search from '@/components/search'
