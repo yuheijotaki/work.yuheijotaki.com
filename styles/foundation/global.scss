@@ -9,6 +9,8 @@ body {
   background: $white_01;
   line-height: 100%;
   box-sizing: border-box;
+  overflow-wrap: anywhere;
+  text-autospace: normal;
   -webkit-text-size-adjust: 100%;
   @include fontSansSerif;
   @include fontSmooth;
