@@ -29,6 +29,10 @@ const nextConfig = {
         hostname: 'images.microcms-assets.io',
       },
     ],
+    qualities: [60, 75],
+  },
+  compiler: {
+    styledComponents: true,
   },
 }
 

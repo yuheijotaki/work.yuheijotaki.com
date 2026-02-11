@@ -1,3 +1,5 @@
+'use client'
+
 import { RefObject } from 'react'
 import styles from '@/styles/components/Search.module.scss'
 
