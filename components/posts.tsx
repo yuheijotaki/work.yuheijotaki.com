@@ -13,11 +13,11 @@ export default function Posts({
     current: string,
     filter: string,
   }) {
-  let detectCurrent = (post: Post) => {
+  const detectCurrent = (post: Post) => {
     if (current === post.slug) {
       return (
-        <span className={`${styles['anchor']} ${styles['is-text']}`}>
-          <p className={styles['image']}>
+        <span className={`${styles.anchor} ${styles['is-text']}`}>
+          <p className={styles.image}>
             <Image
               src={post.thumbnail.src}
               width={post.thumbnail.width}
@@ -27,18 +27,18 @@ export default function Posts({
             />
           </p>
           <div className="content">
-            <p className={styles['title']}>{post.title}</p>
-            <div className={styles['meta']}>
-              <p className={styles['date']}>{post.date}</p>
-              <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+            <p className={styles.title}>{post.title}</p>
+            <div className={styles.meta}>
+              <p className={styles.date}>{post.date}</p>
+              <p className={styles.category}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
             </div>
           </div>
         </span>
       )
     } else {
       return (
-        <Link href={`/post/${post.slug}`} className={`${styles['anchor']} ${styles['is-link']}`}>
-          <p className={styles['image']}>
+        <Link href={`/post/${post.slug}`} className={`${styles.anchor} ${styles['is-link']}`}>
+          <p className={styles.image}>
             <Image
               src={post.thumbnail.src}
               width={post.thumbnail.width}
@@ -48,10 +48,10 @@ export default function Posts({
             />
           </p>
           <div className="content">
-            <p className={styles['title']}>{post.title}</p>
-            <div className={styles['meta']}>
-              <p className={styles['date']}>{post.date}</p>
-              <p className={styles['category']}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
+            <p className={styles.title}>{post.title}</p>
+            <div className={styles.meta}>
+              <p className={styles.date}>{post.date}</p>
+              <p className={styles.category}>{post.categories.map((object: { name: string }) => object.name).join(', ')}</p>
             </div>
           </div>
         </Link>
@@ -59,7 +59,7 @@ export default function Posts({
     }
   }
 
-  let filterPosts = posts.filter(function (post) {
+  const filterPosts = posts.filter(function (post) {
     let isShow = false
     post.categories.map((thisCategory) => {
       if (filter === thisCategory.name) isShow = true
@@ -70,10 +70,10 @@ export default function Posts({
 
   return (
     <>
-      <ul className={styles['posts']}>
+      <ul className={styles.posts}>
         {filterPosts.map((post) => {
           return (
-            <li key={post._id} className={styles['posts__item']}>
+            <li key={post._id} className={styles.posts__item}>
               {detectCurrent(post)}
             </li>
           )

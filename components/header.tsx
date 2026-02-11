@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styles from '@/styles/components/Header.module.scss'
 
-type HeaderProps = {
+interface HeaderProps {
   onLogoClick?: () => void;
   isTopPage?: boolean;
 }
@@ -12,10 +12,10 @@ export default function Header({ onLogoClick, isTopPage = false }: HeaderProps) 
   return (
     <>
       <header>
-        <LogoWrapper className={styles['logo']}>
+        <LogoWrapper className={styles.logo}>
           <Link
             href={'/'}
-            className={styles['anchor']}
+            className={styles.anchor}
             onClick={onLogoClick}
           >
             {process.env.siteName}

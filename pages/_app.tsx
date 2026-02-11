@@ -22,18 +22,9 @@ const handleRouteChange = () => {
 // local Fonts
 import localFont from 'next/font/local'
 const PostgroteskBookFont = localFont({
-  src: [
-    {
-      path: './fonts/PostGrotesk-Book.woff',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/PostGrotesk-Book.eot',
-      weight: '400',
-      style: 'normal',
-    }
-  ],
+  src: './fonts/PostGrotesk-Book.woff',
+  weight: '400',
+  style: 'normal',
   display: 'swap',
   preload: true
 })

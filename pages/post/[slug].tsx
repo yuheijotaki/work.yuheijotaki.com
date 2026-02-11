@@ -23,7 +23,7 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
     }
   `
 
-  let detectUrl = () => {
+  const detectUrl = () => {
     if (post.notAvailable) {
       return (
         <span><s>{post.url}</s> &nbsp;(not available)</span>
@@ -59,19 +59,19 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
       </Head>
       <Header isTopPage={false} />
       <main>
-        <section className={styles['post']}>
-          <h1 className={styles['title']}>{post.title}</h1>
-          <dl className={styles['meta']}>
+        <section className={styles.post}>
+          <h1 className={styles.title}>{post.title}</h1>
+          <dl className={styles.meta}>
             <dt>Date:</dt>
             <dd>{post.date}</dd>
             <dt>Category:</dt>
             <dd>{post.categories.map((object: { name: string }) => object.name).join(', ')}</dd>
           </dl>
-          <p className={styles['url']}>{detectUrl()}</p>
-          <div className={styles['credit']}>
+          <p className={styles.url}>{detectUrl()}</p>
+          <div className={styles.credit}>
             <p dangerouslySetInnerHTML={{ __html: post.credit.replace(/\n/g, '<br />') }} />
           </div>
-          <ul className={styles['capture']}>
+          <ul className={styles.capture}>
             {post.images.map((object, index) => {
               return (
                 <li key={index}>
@@ -87,14 +87,14 @@ export default function Post({ post, posts }: { post: Post, posts: Post[] }) {
             })}
           </ul>
         </section>
-        <aside className={styles['works']} aria-label="関連投稿">
+        <aside className={styles.works} aria-label="関連投稿">
           <Posts
             current={post.slug}
             posts={posts}
             filter='Front-end'
           ></Posts>
         </aside>
-        <p className={styles['back']}><Link href={'/'}>Back to Index</Link></p>
+        <p className={styles.back}><Link href={'/'}>Back to Index</Link></p>
       </main>
     </>
   )
