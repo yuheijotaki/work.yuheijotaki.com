@@ -22,14 +22,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'storage.googleapis.com',
-      },
-      {
-        protocol: 'https',
         hostname: 'images.microcms-assets.io',
       },
     ],
-    qualities: [60, 75],
   },
   compiler: {
     styledComponents: true,
