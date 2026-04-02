@@ -24,7 +24,7 @@ export default function Posts({
               width={post.thumbnail?.width || 640}
               height={post.thumbnail?.height || 420}
               alt=''
-              quality={60}
+              quality={75}
             />
           </p>
           <div className="content">
@@ -45,7 +45,7 @@ export default function Posts({
               width={post.thumbnail?.width || 640}
               height={post.thumbnail?.height || 420}
               alt=''
-              quality={60}
+              quality={75}
             />
           </p>
           <div className="content">
