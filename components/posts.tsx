@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Post } from '@/types/post'
+import type { CategoryFilter } from '@/lib/categories'
 import styles from '@/styles/components/Posts.module.scss'
 
 export default function Posts({
@@ -12,7 +13,7 @@ export default function Posts({
   }: {
     posts: Post[],
     current: string,
-    filter: string,
+    filter: CategoryFilter,
   }) {
   const detectCurrent = (post: Post) => {
     if (current === post.slug) {
@@ -60,14 +61,12 @@ export default function Posts({
     }
   }
 
-  const filterPosts = posts.filter(function (post) {
-    let isShow = false
-    post.category.map((thisCategory) => {
-      if (filter === thisCategory.title) isShow = true
-    })
-    if (filter === 'Front-end') isShow = true
-    return isShow
-  })
+  const filterPosts =
+    filter === 'all'
+      ? posts
+      : posts.filter((post) =>
+          post.category.some((c) => c.title === filter)
+        )
 
   return (
     <>

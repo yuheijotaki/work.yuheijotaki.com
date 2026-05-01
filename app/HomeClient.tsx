@@ -2,74 +2,63 @@
 
 import { useCallback, useState, KeyboardEvent, useRef } from 'react'
 import type { Post } from '@/types/post'
+import {
+  CATEGORIES,
+  DEFAULT_CATEGORY,
+  type Category,
+  type CategoryFilter,
+} from '@/lib/categories'
 import Header from '@/components/header'
 import Search from '@/components/search'
 import Posts from '@/components/posts'
 import styles from '@/styles/page/Home.module.scss'
 
 export default function HomeClient({ posts }: { posts: Post[] }) {
-  const [category, setCategory] = useState('Front-end')
-  const [current, setCurrent] = useState([true, false, false, false])
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([null, null, null, null])
+  const [activeCategory, setActiveCategory] = useState<Category>(DEFAULT_CATEGORY)
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>(
+    Array<HTMLButtonElement | null>(CATEGORIES.length).fill(null)
+  )
+
+  const focusTab = useCallback((index: number) => {
+    const tab = tabRefs.current[index]
+    if (!tab) return
+    tab.focus()
+    setActiveCategory(CATEGORIES[index].label)
+  }, [])
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLButtonElement>) => {
-      const currentIndex = current.findIndex((isCurrent) => isCurrent)
+      const currentIndex = CATEGORIES.findIndex((c) => c.label === activeCategory)
+      const lastIndex = CATEGORIES.length - 1
 
       switch (event.key) {
-        case 'ArrowRight': {
+        case 'ArrowRight':
           event.preventDefault()
-          const nextIndex = (currentIndex + 1) % current.length
-          tabRefs.current[nextIndex]?.focus()
-          tabRefs.current[nextIndex]?.click()
+          focusTab((currentIndex + 1) % CATEGORIES.length)
           break
-        }
-        case 'ArrowLeft': {
+        case 'ArrowLeft':
           event.preventDefault()
-          const prevIndex = (currentIndex - 1 + current.length) % current.length
-          tabRefs.current[prevIndex]?.focus()
-          tabRefs.current[prevIndex]?.click()
+          focusTab((currentIndex - 1 + CATEGORIES.length) % CATEGORIES.length)
           break
-        }
         case 'Home':
           event.preventDefault()
-          tabRefs.current[0]?.focus()
-          tabRefs.current[0]?.click()
+          focusTab(0)
           break
         case 'End':
           event.preventDefault()
-          tabRefs.current[current.length - 1]?.focus()
-          tabRefs.current[current.length - 1]?.click()
+          focusTab(lastIndex)
           break
       }
     },
-    [current]
+    [activeCategory, focusTab]
   )
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    const clicked = (event.target as HTMLButtonElement).textContent
-    const newCurrent = [false, false, false, false]
-
-    if (clicked === 'Front-end') {
-      setCategory('Front-end')
-      newCurrent[0] = true
-    } else if (clicked === 'WordPress') {
-      setCategory('WordPress')
-      newCurrent[1] = true
-    } else if (clicked === 'Web Design') {
-      setCategory('Web Design')
-      newCurrent[2] = true
-    } else if (clicked === 'Tumblr') {
-      setCategory('Tumblr')
-      newCurrent[3] = true
-    }
-
-    setCurrent(newCurrent)
+  const handleSelect = useCallback((category: Category) => {
+    setActiveCategory(category)
   }, [])
 
   const handleLogoClick = useCallback(() => {
-    setCategory('Front-end')
-    setCurrent([true, false, false, false])
+    setActiveCategory(DEFAULT_CATEGORY)
   }, [])
 
   const setTabRef = useCallback((index: number, el: HTMLButtonElement | null) => {
@@ -81,47 +70,26 @@ export default function HomeClient({ posts }: { posts: Post[] }) {
       <Header onLogoClick={handleLogoClick} isTopPage={true} />
       <main>
         <Search
-          current={current}
-          handleClick={handleClick}
+          activeCategory={activeCategory}
+          onSelect={handleSelect}
           onKeyDown={handleKeyDown}
           setTabRef={setTabRef}
         />
-        <div
-          className={styles.works}
-          role="tabpanel"
-          id="frontend-panel"
-          aria-labelledby="frontend-tab"
-          hidden={category !== 'Front-end'}
-        >
-          <Posts current="" posts={posts} filter={category} />
-        </div>
-        <div
-          className={styles.works}
-          role="tabpanel"
-          id="wordpress-panel"
-          aria-labelledby="wordpress-tab"
-          hidden={category !== 'WordPress'}
-        >
-          <Posts current="" posts={posts} filter={category} />
-        </div>
-        <div
-          className={styles.works}
-          role="tabpanel"
-          id="webdesign-panel"
-          aria-labelledby="webdesign-tab"
-          hidden={category !== 'Web Design'}
-        >
-          <Posts current="" posts={posts} filter={category} />
-        </div>
-        <div
-          className={styles.works}
-          role="tabpanel"
-          id="tumblr-panel"
-          aria-labelledby="tumblr-tab"
-          hidden={category !== 'Tumblr'}
-        >
-          <Posts current="" posts={posts} filter={category} />
-        </div>
+        {CATEGORIES.map(({ label, slug }) => {
+          const filter: CategoryFilter = label === DEFAULT_CATEGORY ? 'all' : label
+          return (
+            <div
+              key={slug}
+              className={styles.works}
+              role="tabpanel"
+              id={`${slug}-panel`}
+              aria-labelledby={`${slug}-tab`}
+              hidden={activeCategory !== label}
+            >
+              <Posts current="" posts={posts} filter={filter} />
+            </div>
+          )
+        })}
       </main>
     </>
   )

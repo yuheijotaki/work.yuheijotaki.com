@@ -126,7 +126,7 @@ export default async function PostPage({ params }: Props) {
           </ul>
         </section>
         <aside className={styles.works} aria-label="関連投稿">
-          <Posts current={post.slug} posts={posts} filter="Front-end"></Posts>
+          <Posts current={post.slug} posts={posts} filter="all"></Posts>
         </aside>
         <p className={styles.back}>
           <Link href={'/'}>Back to Index</Link>

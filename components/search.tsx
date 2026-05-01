@@ -1,19 +1,20 @@
 'use client'
 
+import { CATEGORIES, type Category } from '@/lib/categories'
 import styles from '@/styles/components/Search.module.scss'
 
 interface SearchProps {
-  current: boolean[];
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
-  setTabRef: (index: number, el: HTMLButtonElement | null) => void;
+  activeCategory: Category
+  onSelect: (category: Category) => void
+  onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void
+  setTabRef: (index: number, el: HTMLButtonElement | null) => void
 }
 
 export default function Search({
-  current,
-  handleClick,
+  activeCategory,
+  onSelect,
   onKeyDown,
-  setTabRef
+  setTabRef,
 }: SearchProps) {
   return (
     <div className={styles.search}>
@@ -22,58 +23,25 @@ export default function Search({
       </div>
       <div role="tablist" aria-label="カテゴリーフィルター">
         <div className={styles.search__list}>
-          <button
-            ref={(el) => { setTabRef(0, el) }}
-            role="tab"
-            aria-selected={current[0]}
-            aria-controls="frontend-panel"
-            id="frontend-tab"
-            className={`${styles.search__item} ${current[0] ? styles['is-current'] : ''}`}
-            onClick={handleClick}
-            onKeyDown={onKeyDown}
-            tabIndex={current[0] ? 0 : -1}
-          >
-            Front-end
-          </button>
-          <button
-            ref={(el) => { setTabRef(1, el) }}
-            role="tab"
-            aria-selected={current[1]}
-            aria-controls="wordpress-panel"
-            id="wordpress-tab"
-            className={`${styles.search__item} ${current[1] ? styles['is-current'] : ''}`}
-            onClick={handleClick}
-            onKeyDown={onKeyDown}
-            tabIndex={current[1] ? 0 : -1}
-          >
-            WordPress
-          </button>
-          <button
-            ref={(el) => { setTabRef(2, el) }}
-            role="tab"
-            aria-selected={current[2]}
-            aria-controls="webdesign-panel"
-            id="webdesign-tab"
-            className={`${styles.search__item} ${current[2] ? styles['is-current'] : ''}`}
-            onClick={handleClick}
-            onKeyDown={onKeyDown}
-            tabIndex={current[2] ? 0 : -1}
-          >
-            Web Design
-          </button>
-          <button
-            ref={(el) => { setTabRef(3, el) }}
-            role="tab"
-            aria-selected={current[3]}
-            aria-controls="tumblr-panel"
-            id="tumblr-tab"
-            className={`${styles.search__item} ${current[3] ? styles['is-current'] : ''}`}
-            onClick={handleClick}
-            onKeyDown={onKeyDown}
-            tabIndex={current[3] ? 0 : -1}
-          >
-            Tumblr
-          </button>
+          {CATEGORIES.map(({ label, slug }, index) => {
+            const isCurrent = activeCategory === label
+            return (
+              <button
+                key={slug}
+                ref={(el) => { setTabRef(index, el) }}
+                role="tab"
+                aria-selected={isCurrent}
+                aria-controls={`${slug}-panel`}
+                id={`${slug}-tab`}
+                className={`${styles.search__item} ${isCurrent ? styles['is-current'] : ''}`}
+                onClick={() => { onSelect(label) }}
+                onKeyDown={onKeyDown}
+                tabIndex={isCurrent ? 0 : -1}
+              >
+                {label}
+              </button>
+            )
+          })}
         </div>
       </div>
     </div>
