@@ -2,10 +2,34 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/microcms'
+import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
 import PostColorStyle from './PostColorStyle'
 import styles from '@/styles/page/Post.module.scss'
+
+function PostUrl({ post }: { post: Post }) {
+  if (post.notAvailable) {
+    return (
+      <span>
+        <s>{post.url}</s> &nbsp;(not available)
+      </span>
+    )
+  }
+  if (post.archive) {
+    return (
+      <a href={post.url} target="_blank" rel="noreferrer">
+        {post.url}
+        <span>&nbsp;(archive)</span>
+      </a>
+    )
+  }
+  return (
+    <a href={post.url} target="_blank" rel="noreferrer">
+      {post.url}
+    </a>
+  )
+}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -59,29 +83,6 @@ export default async function PostPage({ params }: Props) {
     return <div>Post not found</div>
   }
 
-  const detectUrl = () => {
-    if (post.notAvailable) {
-      return (
-        <span>
-          <s>{post.url}</s> &nbsp;(not available)
-        </span>
-      )
-    } else if (post.archive) {
-      return (
-        <a href={post.url} target="_blank" rel="noreferrer">
-          {post.url}
-          <span>&nbsp;(archive)</span>
-        </a>
-      )
-    } else {
-      return (
-        <a href={post.url} target="_blank" rel="noreferrer">
-          {post.url}
-        </a>
-      )
-    }
-  }
-
   return (
     <>
       <PostColorStyle colorText={post.colorText} />
@@ -99,7 +100,7 @@ export default async function PostPage({ params }: Props) {
                 .join(', ')}
             </dd>
           </dl>
-          <p className={styles.url}>{detectUrl()}</p>
+          <p className={styles.url}><PostUrl post={post} /></p>
           {post.credit && (
             <div className={styles.credit}>
               <p
