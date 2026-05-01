@@ -20,9 +20,9 @@ export default function Posts({
         <span className={`${styles.anchor} ${styles['is-text']}`}>
           <p className={styles.image}>
             <Image
-              src={post.thumbnail?.url || ''}
-              width={post.thumbnail?.width || 640}
-              height={post.thumbnail?.height || 420}
+              src={post.thumbnail?.url ?? ''}
+              width={post.thumbnail?.width ?? 640}
+              height={post.thumbnail?.height ?? 420}
               alt=''
               quality={75}
             />
@@ -41,9 +41,9 @@ export default function Posts({
         <Link href={`/post/${post.slug}`} className={`${styles.anchor} ${styles['is-link']}`}>
           <p className={styles.image}>
             <Image
-              src={post.thumbnail?.url || ''}
-              width={post.thumbnail?.width || 640}
-              height={post.thumbnail?.height || 420}
+              src={post.thumbnail?.url ?? ''}
+              width={post.thumbnail?.width ?? 640}
+              height={post.thumbnail?.height ?? 420}
               alt=''
               quality={75}
             />

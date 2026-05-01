@@ -2,8 +2,8 @@ import { createClient } from 'microcms-js-sdk'
 import type { Post } from '@/types/post'
 
 const client = createClient({
-  serviceDomain: process.env.MICROCMS_SERVICE_ID + '',
-  apiKey: process.env.MICROCMS_API_KEY + '',
+  serviceDomain: process.env.MICROCMS_SERVICE_ID ?? '',
+  apiKey: process.env.MICROCMS_API_KEY ?? '',
 })
 
 export const getPosts = async () => {
@@ -24,7 +24,7 @@ export const getPosts = async () => {
   return contents
 }
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostBySlug = async (slug: string): Promise<Post | null> => {
   const { contents } = await client.getList<Post>({
     endpoint: 'work',
     queries: {
@@ -46,5 +46,5 @@ export const getPostBySlug = async (slug: string) => {
       limit: 1,
     },
   })
-  return contents[0] || null
+  return contents[0] ?? null
 }

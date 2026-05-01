@@ -17,18 +17,20 @@ export default function HomeClient({ posts }: { posts: Post[] }) {
       const currentIndex = current.findIndex((isCurrent) => isCurrent)
 
       switch (event.key) {
-        case 'ArrowRight':
+        case 'ArrowRight': {
           event.preventDefault()
           const nextIndex = (currentIndex + 1) % current.length
           tabRefs.current[nextIndex]?.focus()
           tabRefs.current[nextIndex]?.click()
           break
-        case 'ArrowLeft':
+        }
+        case 'ArrowLeft': {
           event.preventDefault()
           const prevIndex = (currentIndex - 1 + current.length) % current.length
           tabRefs.current[prevIndex]?.focus()
           tabRefs.current[prevIndex]?.click()
           break
+        }
         case 'Home':
           event.preventDefault()
           tabRefs.current[0]?.focus()

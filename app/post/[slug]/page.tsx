@@ -2,13 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/microcms'
-import type { Post } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
 import PostColorStyle from './PostColorStyle'
 import styles from '@/styles/page/Post.module.scss'
 
-type Props = {
+interface Props {
   params: Promise<{ slug: string }>
 }
 
@@ -38,13 +37,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${post.title} | work.yuheijotaki.com`,
       description: `${post.title} Webサイトの構築事例紹介です。`,
       type: 'article',
-      images: post.thumbnail?.url || '',
+      images: post.thumbnail?.url ?? '',
     },
     twitter: {
       card: 'summary_large_image',
       title: `${post.title} | work.yuheijotaki.com`,
       description: `${post.title} Webサイトの構築事例紹介です。`,
-      images: post.thumbnail?.url || '',
+      images: post.thumbnail?.url ?? '',
     },
   }
 }
