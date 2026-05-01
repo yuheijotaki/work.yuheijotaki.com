@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { SITE_NAME } from '@/lib/site'
 import styles from '@/styles/components/Header.module.scss'
 
 interface HeaderProps {
@@ -20,7 +21,7 @@ export default function Header({ onLogoClick, isTopPage = false }: HeaderProps) 
             className={styles.anchor}
             onClick={onLogoClick}
           >
-            {process.env.siteName}
+            {SITE_NAME}
           </Link>
         </LogoWrapper>
       </header>

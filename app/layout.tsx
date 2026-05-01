@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import StyledComponentsRegistry from '@/lib/registry'
+import { SITE_URL } from '@/lib/site'
 import 'ress'
 import '@/styles/foundation/global.scss'
 import 'nprogress/nprogress.css'
@@ -15,7 +16,7 @@ const PostgroteskBookFont = localFont({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://work.yuheijotaki.com/'),
+  metadataBase: new URL(SITE_URL),
 }
 
 export default function RootLayout({

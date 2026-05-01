@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/microcms'
+import { SITE_URL, SITE_NAME, TWITTER_CARD } from '@/lib/site'
 import type { PostDetail } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
@@ -52,22 +53,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
+  const title = `${post.title} | ${SITE_NAME}`
+  const description = `${post.title} Webサイトの構築事例紹介です。`
+  const image = post.thumbnail?.url ?? ''
+
   return {
-    title: `${post.title} | work.yuheijotaki.com`,
-    description: `${post.title} Webサイトの構築事例紹介です。`,
+    title,
+    description,
     openGraph: {
-      siteName: 'work.yuheijotaki.com',
-      url: `https://work.yuheijotaki.com/post/${post.slug}/`,
-      title: `${post.title} | work.yuheijotaki.com`,
-      description: `${post.title} Webサイトの構築事例紹介です。`,
+      siteName: SITE_NAME,
+      url: `${SITE_URL}post/${post.slug}/`,
+      title,
+      description,
       type: 'article',
-      images: post.thumbnail?.url ?? '',
+      images: image,
     },
     twitter: {
-      card: 'summary_large_image',
-      title: `${post.title} | work.yuheijotaki.com`,
-      description: `${post.title} Webサイトの構築事例紹介です。`,
-      images: post.thumbnail?.url ?? '',
+      card: TWITTER_CARD,
+      title,
+      description,
+      images: image,
     },
   }
 }

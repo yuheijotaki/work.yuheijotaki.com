@@ -1,23 +1,26 @@
 import type { Metadata } from 'next'
 import { getPosts } from '@/lib/microcms'
+import { SITE_URL, SITE_NAME, OG_IMAGE, TWITTER_CARD } from '@/lib/site'
 import HomeClient from './HomeClient'
 
+const description = 'yuheijotaki Portfolio Website'
+
 export const metadata: Metadata = {
-  title: 'work.yuheijotaki.com',
-  description: 'yuheijotaki Portfolio Website',
+  title: SITE_NAME,
+  description,
   openGraph: {
-    siteName: 'work.yuheijotaki.com',
-    url: 'https://work.yuheijotaki.com/',
-    title: 'work.yuheijotaki.com',
-    description: 'yuheijotaki Portfolio Website',
+    siteName: SITE_NAME,
+    url: SITE_URL,
+    title: SITE_NAME,
+    description,
     type: 'website',
-    images: 'img/meta/ogp.png',
+    images: OG_IMAGE,
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'work.yuheijotaki.com',
-    description: 'yuheijotaki Portfolio Website',
-    images: 'img/meta/ogp.png',
+    card: TWITTER_CARD,
+    title: SITE_NAME,
+    description,
+    images: OG_IMAGE,
   },
 }
 

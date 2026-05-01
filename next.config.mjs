@@ -8,12 +8,6 @@ const __dirname = path.dirname(__filename)
 const nextConfig = {
   devIndicators: false,
   reactStrictMode: true,
-  env: {
-    siteUrl: 'https://work.yuheijotaki.com/',
-    siteName: 'work.yuheijotaki.com',
-    ogImage: 'img/meta/ogp.png',
-    metaCard: 'summary_large_image',
-  },
   trailingSlash: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
