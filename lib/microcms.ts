@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { createClient } from 'microcms-js-sdk'
 import type { Post } from '@/types/post'
 
@@ -6,7 +7,7 @@ const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY ?? '',
 })
 
-export const getPosts = async () => {
+export const getPosts = cache(async () => {
   const { contents } = await client.getList<Post>({
     endpoint: 'work',
     queries: {
@@ -22,9 +23,9 @@ export const getPosts = async () => {
     },
   })
   return contents
-}
+})
 
-export const getPostBySlug = async (slug: string): Promise<Post | null> => {
+export const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
   const { contents } = await client.getList<Post>({
     endpoint: 'work',
     queries: {
@@ -47,4 +48,4 @@ export const getPostBySlug = async (slug: string): Promise<Post | null> => {
     },
   })
   return contents[0] ?? null
-}
+})
