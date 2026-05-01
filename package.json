@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "markuplint": "markuplint \"./pages/**/*.{jsx,tsx}\""
+    "markuplint": "markuplint \"./app/**/*.{jsx,tsx}\""
   },
   "dependencies": {
     "@types/node": "^25.6.0",
@@ -33,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
+    "markuplint": "^4.18.1",
     "sass": "^1.99.0",
     "typescript-eslint": "^8.59.1"
   },

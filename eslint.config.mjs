@@ -14,7 +14,6 @@ const ignoresConfig = defineConfig([
       'node_modules/',
       'public/',
       '.vscode/',
-      'pages.backup/',
       'next-env.d.ts',
     ],
   },
