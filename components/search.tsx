@@ -1,22 +1,19 @@
 'use client'
 
-import { RefObject } from 'react'
 import styles from '@/styles/components/Search.module.scss'
 
 interface SearchProps {
-  category: string;
   current: boolean[];
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
-  tabRefs: RefObject<(HTMLButtonElement | null)[]>;
+  setTabRef: (index: number, el: HTMLButtonElement | null) => void;
 }
 
 export default function Search({
-  category,
   current,
   handleClick,
   onKeyDown,
-  tabRefs
+  setTabRef
 }: SearchProps) {
   return (
     <div className={styles.search}>
@@ -26,9 +23,7 @@ export default function Search({
       <div role="tablist" aria-label="カテゴリーフィルター">
         <div className={styles.search__list}>
           <button
-            ref={(el) => {
-              if (tabRefs.current) tabRefs.current[0] = el;
-            }}
+            ref={(el) => { setTabRef(0, el) }}
             role="tab"
             aria-selected={current[0]}
             aria-controls="frontend-panel"
@@ -41,9 +36,7 @@ export default function Search({
             Front-end
           </button>
           <button
-            ref={(el) => {
-              if (tabRefs.current) tabRefs.current[1] = el;
-            }}
+            ref={(el) => { setTabRef(1, el) }}
             role="tab"
             aria-selected={current[1]}
             aria-controls="wordpress-panel"
@@ -56,9 +49,7 @@ export default function Search({
             WordPress
           </button>
           <button
-            ref={(el) => {
-              if (tabRefs.current) tabRefs.current[2] = el;
-            }}
+            ref={(el) => { setTabRef(2, el) }}
             role="tab"
             aria-selected={current[2]}
             aria-controls="webdesign-panel"
@@ -71,9 +62,7 @@ export default function Search({
             Web Design
           </button>
           <button
-            ref={(el) => {
-              if (tabRefs.current) tabRefs.current[3] = el;
-            }}
+            ref={(el) => { setTabRef(3, el) }}
             role="tab"
             aria-selected={current[3]}
             aria-controls="tumblr-panel"

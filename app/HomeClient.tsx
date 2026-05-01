@@ -70,16 +70,19 @@ export default function HomeClient({ posts }: { posts: Post[] }) {
     setCurrent([true, false, false, false])
   }, [])
 
+  const setTabRef = useCallback((index: number, el: HTMLButtonElement | null) => {
+    tabRefs.current[index] = el
+  }, [])
+
   return (
     <>
       <Header onLogoClick={handleLogoClick} isTopPage={true} />
       <main>
         <Search
-          category={category}
           current={current}
           handleClick={handleClick}
           onKeyDown={handleKeyDown}
-          tabRefs={tabRefs}
+          setTabRef={setTabRef}
         />
         <div
           className={styles.works}
