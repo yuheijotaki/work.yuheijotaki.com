@@ -102,6 +102,7 @@ $color_text: var(--color-text);
   p {
     color: $color_text;
     line-height: 1.7;
+    white-space: pre-wrap;
     @include fontMedium;
   }
 }

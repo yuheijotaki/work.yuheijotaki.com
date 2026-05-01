@@ -109,17 +109,13 @@ export default async function PostPage({ params }: Props) {
           <p className={styles.url}><PostUrl post={post} /></p>
           {post.credit && (
             <div className={styles.credit}>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: post.credit.replace(/\n/g, '<br />'),
-                }}
-              />
+              <p>{post.credit}</p>
             </div>
           )}
           <ul className={styles.capture}>
-            {post.images?.map((object, index) => {
+            {post.images?.map((object) => {
               return (
-                <li key={index}>
+                <li key={object.url}>
                   <Image
                     src={object.url}
                     width={object.width}

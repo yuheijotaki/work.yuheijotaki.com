@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={PostgroteskBookFont.variable}>
-      <body tabIndex={-1}>
+      <body>
         <div className="wrapper">{children}</div>
       </body>
     </html>
