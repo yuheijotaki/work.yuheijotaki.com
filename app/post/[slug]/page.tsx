@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/microcms'
-import type { Post } from '@/types/post'
+import type { PostDetail } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
 import PostColorStyle from './PostColorStyle'
 import styles from '@/styles/page/Post.module.scss'
 
-function PostUrl({ post }: { post: Post }) {
+function PostUrl({ post }: { post: PostDetail }) {
   if (post.notAvailable) {
     return (
       <span>

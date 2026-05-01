@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useState, KeyboardEvent, useRef } from 'react'
-import type { Post } from '@/types/post'
+import type { PostListItem } from '@/types/post'
 import {
   CATEGORIES,
   DEFAULT_CATEGORY,
@@ -13,7 +13,7 @@ import Search from '@/components/search'
 import Posts from '@/components/posts'
 import styles from '@/styles/page/Home.module.scss'
 
-export default function HomeClient({ posts }: { posts: Post[] }) {
+export default function HomeClient({ posts }: { posts: PostListItem[] }) {
   const [activeCategory, setActiveCategory] = useState<Category>(DEFAULT_CATEGORY)
   const tabRefs = useRef<(HTMLButtonElement | null)[]>(
     Array<HTMLButtonElement | null>(CATEGORIES.length).fill(null)

@@ -2,11 +2,11 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Post } from '@/types/post'
+import type { PostListItem } from '@/types/post'
 import type { CategoryFilter } from '@/lib/categories'
 import styles from '@/styles/components/Posts.module.scss'
 
-function PostCard({ post }: { post: Post }) {
+function PostCard({ post }: { post: PostListItem }) {
   return (
     <>
       <p className={styles.image}>
@@ -36,7 +36,7 @@ export default function Posts({
     current,
     filter
   }: {
-    posts: Post[],
+    posts: PostListItem[],
     current: string,
     filter: CategoryFilter,
   }) {
