@@ -13,7 +13,6 @@ function PostCard({ post }: { post: PostListItem }) {
           width={post.thumbnail?.width ?? 640}
           height={post.thumbnail?.height ?? 420}
           alt=''
-          quality={75}
         />
       </p>
       <div className="content">

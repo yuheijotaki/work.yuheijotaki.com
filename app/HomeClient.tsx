@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, KeyboardEvent, useRef } from 'react'
+import { useState, KeyboardEvent, useRef } from 'react'
 import type { PostListItem } from '@/types/post'
 import {
   CATEGORIES,
@@ -19,51 +19,48 @@ export default function HomeClient({ posts }: { posts: PostListItem[] }) {
     Array<HTMLButtonElement | null>(CATEGORIES.length).fill(null)
   )
 
-  const focusTab = useCallback((index: number) => {
+  const focusTab = (index: number) => {
     const tab = tabRefs.current[index]
     if (!tab) return
     tab.focus()
     setActiveCategory(CATEGORIES[index].label)
-  }, [])
+  }
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLButtonElement>) => {
-      const currentIndex = CATEGORIES.findIndex((c) => c.label === activeCategory)
-      const lastIndex = CATEGORIES.length - 1
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const currentIndex = CATEGORIES.findIndex((c) => c.label === activeCategory)
+    const lastIndex = CATEGORIES.length - 1
 
-      switch (event.key) {
-        case 'ArrowRight':
-          event.preventDefault()
-          focusTab((currentIndex + 1) % CATEGORIES.length)
-          break
-        case 'ArrowLeft':
-          event.preventDefault()
-          focusTab((currentIndex - 1 + CATEGORIES.length) % CATEGORIES.length)
-          break
-        case 'Home':
-          event.preventDefault()
-          focusTab(0)
-          break
-        case 'End':
-          event.preventDefault()
-          focusTab(lastIndex)
-          break
-      }
-    },
-    [activeCategory, focusTab]
-  )
+    switch (event.key) {
+      case 'ArrowRight':
+        event.preventDefault()
+        focusTab((currentIndex + 1) % CATEGORIES.length)
+        break
+      case 'ArrowLeft':
+        event.preventDefault()
+        focusTab((currentIndex - 1 + CATEGORIES.length) % CATEGORIES.length)
+        break
+      case 'Home':
+        event.preventDefault()
+        focusTab(0)
+        break
+      case 'End':
+        event.preventDefault()
+        focusTab(lastIndex)
+        break
+    }
+  }
 
-  const handleSelect = useCallback((category: Category) => {
+  const handleSelect = (category: Category) => {
     setActiveCategory(category)
-  }, [])
+  }
 
-  const handleLogoClick = useCallback(() => {
+  const handleLogoClick = () => {
     setActiveCategory(DEFAULT_CATEGORY)
-  }, [])
+  }
 
-  const setTabRef = useCallback((index: number, el: HTMLButtonElement | null) => {
+  const setTabRef = (index: number, el: HTMLButtonElement | null) => {
     tabRefs.current[index] = el
-  }, [])
+  }
 
   return (
     <>

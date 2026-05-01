@@ -121,7 +121,6 @@ export default async function PostPage({ params }: Props) {
                     width={object.width}
                     height={object.height}
                     alt=""
-                    quality={75}
                   />
                 </li>
               )
