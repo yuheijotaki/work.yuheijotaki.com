@@ -113,7 +113,7 @@ export default async function PostPage({ params }: Props) {
             </div>
           )}
           <ul className={styles.capture}>
-            {post.images?.map((object) => {
+            {post.images?.map((object, index) => {
               return (
                 <li key={object.url}>
                   <Image
@@ -121,6 +121,7 @@ export default async function PostPage({ params }: Props) {
                     width={object.width}
                     height={object.height}
                     alt=""
+                    priority={index === 0}
                   />
                 </li>
               )

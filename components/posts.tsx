@@ -4,7 +4,7 @@ import type { PostListItem } from '@/types/post'
 import type { CategoryFilter } from '@/lib/categories'
 import styles from '@/styles/components/Posts.module.scss'
 
-function PostCard({ post }: { post: PostListItem }) {
+function PostCard({ post, priority = false }: { post: PostListItem, priority?: boolean }) {
   return (
     <>
       <p className={styles.image}>
@@ -13,6 +13,7 @@ function PostCard({ post }: { post: PostListItem }) {
           width={post.thumbnail?.width ?? 640}
           height={post.thumbnail?.height ?? 420}
           alt=''
+          priority={priority}
         />
       </p>
       <div className="content">
@@ -31,11 +32,13 @@ function PostCard({ post }: { post: PostListItem }) {
 export default function Posts({
     posts,
     current,
-    filter
+    filter,
+    priorityFirst = false,
   }: {
     posts: PostListItem[],
     current: string,
     filter: CategoryFilter,
+    priorityFirst?: boolean,
   }) {
   const filterPosts =
     filter === 'all'
@@ -46,20 +49,21 @@ export default function Posts({
 
   return (
     <ul className={styles.posts}>
-      {filterPosts.map((post) => {
+      {filterPosts.map((post, index) => {
         const isCurrent = current === post.slug
+        const isPriority = priorityFirst && index === 0
         return (
           <li key={post.id} className={styles.posts__item}>
             {isCurrent ? (
               <span className={`${styles.anchor} ${styles['is-text']}`}>
-                <PostCard post={post} />
+                <PostCard post={post} priority={isPriority} />
               </span>
             ) : (
               <Link
                 href={`/post/${post.slug}`}
                 className={`${styles.anchor} ${styles['is-link']}`}
               >
-                <PostCard post={post} />
+                <PostCard post={post} priority={isPriority} />
               </Link>
             )}
           </li>

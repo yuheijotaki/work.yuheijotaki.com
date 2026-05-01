@@ -83,7 +83,7 @@ export default function HomeClient({ posts }: { posts: PostListItem[] }) {
               aria-labelledby={`${slug}-tab`}
               hidden={activeCategory !== label}
             >
-              <Posts current="" posts={posts} filter={filter} />
+              <Posts current="" posts={posts} filter={filter} priorityFirst={filter === 'all'} />
             </div>
           )
         })}
