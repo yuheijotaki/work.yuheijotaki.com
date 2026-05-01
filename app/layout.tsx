@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import StyledComponentsRegistry from '@/lib/registry'
 import { SITE_URL } from '@/lib/site'
 import 'ress'
 import '@/styles/foundation/global.scss'
@@ -27,9 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ja" className={PostgroteskBookFont.variable}>
       <body tabIndex={-1}>
-        <StyledComponentsRegistry>
-          <div className="wrapper">{children}</div>
-        </StyledComponentsRegistry>
+        <div className="wrapper">{children}</div>
       </body>
     </html>
   )

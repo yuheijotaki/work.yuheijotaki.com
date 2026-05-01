@@ -6,7 +6,6 @@ import { SITE_URL, SITE_NAME, TWITTER_CARD } from '@/lib/site'
 import type { PostDetail } from '@/types/post'
 import Header from '@/components/header'
 import Posts from '@/components/posts'
-import PostColorStyle from './PostColorStyle'
 import styles from '@/styles/page/Post.module.scss'
 
 function PostUrl({ post }: { post: PostDetail }) {
@@ -90,10 +89,12 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <>
-      <PostColorStyle colorText={post.colorText} />
       <Header isTopPage={false} />
       <main>
-        <section className={styles.post}>
+        <section
+          className={styles.post}
+          style={{ '--color-text': post.colorText } as React.CSSProperties}
+        >
           <h1 className={styles.title}>{post.title}</h1>
           <dl className={styles.meta}>
             <dt>Date:</dt>
