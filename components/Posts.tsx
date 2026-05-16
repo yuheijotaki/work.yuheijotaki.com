@@ -4,7 +4,19 @@ import type { PostListItem } from '@/types/post'
 import type { CategoryFilter } from '@/lib/categories'
 import styles from '@/styles/components/Posts.module.scss'
 
-function PostCard({ post, priority = false }: { post: PostListItem, priority?: boolean }) {
+interface PostCardProps {
+  post: PostListItem
+  priority?: boolean
+}
+
+interface PostsProps {
+  posts: PostListItem[]
+  current: string
+  filter: CategoryFilter
+  priorityFirst?: boolean
+}
+
+function PostCard({ post, priority = false }: PostCardProps) {
   return (
     <>
       <p className={styles.image}>
@@ -30,16 +42,11 @@ function PostCard({ post, priority = false }: { post: PostListItem, priority?: b
 }
 
 export default function Posts({
-    posts,
-    current,
-    filter,
-    priorityFirst = false,
-  }: {
-    posts: PostListItem[],
-    current: string,
-    filter: CategoryFilter,
-    priorityFirst?: boolean,
-  }) {
+  posts,
+  current,
+  filter,
+  priorityFirst = false,
+}: PostsProps) {
   const filterPosts =
     filter === 'all'
       ? posts

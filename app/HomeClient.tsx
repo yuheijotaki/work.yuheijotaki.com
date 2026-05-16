@@ -8,9 +8,9 @@ import {
   type Category,
   type CategoryFilter,
 } from '@/lib/categories'
-import Header from '@/components/header'
-import Search from '@/components/search'
-import Posts from '@/components/posts'
+import Header from '@/components/Header'
+import Search from '@/components/Search'
+import Posts from '@/components/Posts'
 import styles from '@/styles/page/Home.module.scss'
 
 export default function HomeClient({ posts }: { posts: PostListItem[] }) {

@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { getPosts, getPostBySlug } from '@/lib/microcms'
 import { SITE_URL, SITE_NAME, TWITTER_CARD } from '@/lib/site'
 import type { PostDetail } from '@/types/post'
-import Header from '@/components/header'
-import Posts from '@/components/posts'
+import Header from '@/components/Header'
+import Posts from '@/components/Posts'
 import styles from '@/styles/page/Post.module.scss'
 
 function PostUrl({ post }: { post: PostDetail }) {
