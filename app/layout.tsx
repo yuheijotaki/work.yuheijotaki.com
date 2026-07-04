@@ -3,7 +3,6 @@ import localFont from 'next/font/local'
 import { SITE_URL } from '@/lib/site'
 import 'ress'
 import '@/styles/foundation/global.scss'
-import 'nprogress/nprogress.css'
 
 const PostgroteskBookFont = localFont({
   src: '../public/fonts/PostGrotesk-Book.woff',

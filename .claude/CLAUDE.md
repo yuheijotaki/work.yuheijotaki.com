@@ -58,7 +58,7 @@ microCMS と通信するのは `lib/microcms.ts` のみ。コンテンツタイ�
 
 CMS データに応じた動的スタイルは、inline style で CSS 変数を注入して SCSS 側で参照する方式を取る（例: `app/post/[slug]/page.tsx` が `--color-text` に `post.colorText` を設定する）。以前使っていた styled-components は廃止済みなので、新たに導入しないこと。
 
-CSS リセットの `ress` と `nprogress/nprogress.css` は `app/layout.tsx` で import している。`ress` の型シムは `types/ress.d.ts`。
+CSS リセットの `ress` は `app/layout.tsx` で import している。`ress` の型シムは `types/ress.d.ts`。
 
 ### パスエイリアス
 
