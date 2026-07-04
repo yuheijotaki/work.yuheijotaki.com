@@ -8,6 +8,9 @@ const description = 'yuheijotaki Portfolio Website'
 export const metadata: Metadata = {
   title: SITE_NAME,
   description,
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     siteName: SITE_NAME,
     url: SITE_URL,
