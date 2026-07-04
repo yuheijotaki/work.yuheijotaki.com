@@ -1,6 +1,6 @@
 ---
 name: update-deps
-description: npm パッケージを patch+minor で一括更新する。major は対話で選別し、`overrides` も追従。`npm run lint` と `npm run build` で検証し、`main` に直接コミットする。「パッケージ更新」「依存を上げて」「ライブラリのバージョンアップ」と言われたときに使用。
+description: npm パッケージを patch+minor で一括更新する。major は対話で選別し、`overrides` も追従。`npm run lint` / `npm run markuplint` / `npm run build` で検証し、`main` に直接コミットする。「パッケージ更新」「依存を上げて」「ライブラリのバージョンアップ」と言われたときに使用。
 ---
 
 # パッケージ更新ワークフロー
@@ -15,10 +15,10 @@ description: npm パッケージを patch+minor で一括更新する。major �
 ## 前提
 
 - パッケージマネージャ: **npm**
-- Node バージョン: **`.node-version` に固定**（現状 `24.14.1`）。Node 自体の上げ下げはこのスキルでは扱わない
+- Node バージョン: **`.node-version` に固定**（現状 `24.18.0`）。Node 自体の上げ下げはこのスキルでは扱わない
 - 既定の更新範囲: **patch + minor**（major は対話で個別承認）
 - ブランチ運用: **`main` に直接コミット**
-- 検証: `npm run lint` と `npm run build`、加えて目視確認用に `npm run dev` を起動（ポート 3000）
+- 検証: `npm run lint` / `npm run markuplint` / `npm run build`、加えて目視確認用に `npm run dev` を起動（ポート 3000）
 - コミットメッセージ: `chore(deps): bump <N> package(s)`（N=1 は singular、N≧2 は plural。本文に bump 一覧）
 
 ---
@@ -81,7 +81,6 @@ major を伴うとき、breaking change が広範囲に波及しやすいので�
 - `next` — App Router の挙動・キャッシュ・`revalidate` セマンティクス・`next/image` の API
 - `react` / `react-dom` — `next` の対応バージョンと整合する必要あり（19.x → 20.x のような跨ぎ）
 - `microcms-js-sdk` — `createClient` / `getList` の型シグネチャ
-- `styled-components` — SSR レジストリ（`lib/registry.tsx`）の API、`compiler.styledComponents` の挙動
 - `eslint` / `typescript-eslint` / `eslint-config-next` — flat config の互換性
 - `typescript` — `tsconfig.json` の strict 設定との相性
 - `sass` — Dart Sass の deprecation（`@import` → `@use` 等）
@@ -133,7 +132,7 @@ npm install
 
 ### overrides の更新（patch + minor に追従）
 
-`package.json` の `overrides` セクション（現状は `minimatch: ^10.2.4` の 1 件）について、各エントリの**指定形式に応じて扱いを変える**:
+`package.json` の `overrides` セクション（現状は `minimatch: ^10.2.5` の 1 件）について、各エントリの**指定形式に応じて扱いを変える**:
 
 | 指定形式                          | 例                            | 扱い                                                |
 | --------------------------------- | ----------------------------- | --------------------------------------------------- |
@@ -177,11 +176,10 @@ npm view 'minimatch@^10' version --json | jq -r 'if type=="array" then .[-1] els
 順番に実行し、**失敗したら停止して原因をユーザーに報告**する。
 
 ```bash
-npm run lint      # ESLint (typescript-eslint strictTypeChecked + jsx-a11y/strict + Next core-web-vitals)
-npm run build     # next build（generateStaticParams で全 slug を pre-render するため microCMS への到達が必要）
+npm run lint        # ESLint (typescript-eslint strictTypeChecked + jsx-a11y/strict + Next core-web-vitals)
+npm run markuplint  # markuplint（./app/**/*.{jsx,tsx} 対象）
+npm run build       # next build（generateStaticParams で全 slug を pre-render するため microCMS への到達が必要）
 ```
-
-> `npm run markuplint` は現状 `./pages/**/*.{jsx,tsx}` を見ており、App Router 移行後はマッチしない。検証ステップでは回さない。
 
 > `npm run build` は microCMS API（`getPosts` / `getPostBySlug`）を叩くため、`.env` の `MICROCMS_SERVICE_ID` / `MICROCMS_API_KEY` が無いと失敗する。Step 0 で確認済みのはずだが、ここで `Module not found` 以外のネットワーク／認証エラーが出たら environment 起因として切り分ける。
 
@@ -231,7 +229,7 @@ until grep -q -E "Local|ready|error|started server on" <output-file>; do sleep 1
 その後ユーザーに以下を伝える:
 
 - `http://localhost:3000` にアクセスして確認してほしい
-- 重点確認: トップページのタブ切替（Front-end / WordPress / Web Design / Tumblr）、`/post/[slug]/` の遷移、microCMS 画像（`images.microcms-assets.io`）の表示、styled-components 由来の動的色（`PostColorStyle`）
+- 重点確認: トップページのタブ切替（Front-end / WordPress / Web Design / Tumblr）、`/post/[slug]/` の遷移、microCMS 画像（`images.microcms-assets.io`）の表示、記事ごとの文字色（`colorText` → CSS 変数 `--color-text`）の反映
 - 確認終了後に「OK」「NG」を返してもらう
 - NG なら何が問題かを聞く
 
@@ -254,7 +252,7 @@ until grep -q -E "Local|ready|error|started server on" <output-file>; do sleep 1
    ```
 
    - **件名の単複**: N=1 のときは `bump 1 package`（singular）、N≧2 のときは `bump N packages`（plural）
-   - 末尾には `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` を含める
+   - 末尾には `Co-Authored-By: Claude <noreply@anthropic.com>` を含める（モデル名は含めず、この固定形とする）
    - HEREDOC で `git commit -m "$(cat <<'EOF' ... EOF)"` の形を使う
 
 2. 承認後にコミット
@@ -266,7 +264,7 @@ until grep -q -E "Local|ready|error|started server on" <output-file>; do sleep 1
 
    ...
 
-   Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+   Co-Authored-By: Claude <noreply@anthropic.com>
    EOF
    )"
    git status   # 結果確認

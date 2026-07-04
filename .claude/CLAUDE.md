@@ -10,12 +10,10 @@ npm run build       # 本番ビルド
 npm run start       # 本番ビルドの起動
 npm run lint        # ESLint（typescript-eslint strictTypeChecked）
 npm run lint:fix    # ESLint --fix
-npm run markuplint  # マークアップ lint — 下記の注意を参照
+npm run markuplint  # マークアップ lint（./app/**/*.{jsx,tsx} 対象、設定は .markuplintrc）
 ```
 
-Node バージョンは `.node-version` で `24.14.1` に固定。
-
-`npm run markuplint` は `./pages/**/*.{jsx,tsx}` を対象にしているが、本プロジェクトは App Router へ移行済みで、旧 `pages/` は `pages.backup/` に退避している（lint 対象外）。グロブを `./app/**/*.{jsx,tsx}` に書き換えるまで、現状はこのスクリプトで lint されるファイルが存在しない。
+Node バージョンは `.node-version` で固定（現在 `24.18.0`）。
 
 ## 環境変数
 
@@ -32,36 +30,39 @@ Next.js 16 App Router で構築されたポートフォリオサイトで、コ�
 
 ### Server → Client のデータフロー
 
-ページは async な Server Component が microCMS を 1 度フェッチし、その結果をインタラクティブな Client Component に渡す構成になっている。**この分離は意図的なので、ページを追加する際も同じパターンを踏襲すること**:
+ページは async な Server Component が microCMS をフェッチし、インタラクションが必要な部分だけ Client Component に切り出す構成になっている。**この分離は意図的なので、ページを追加する際も同じパターンを踏襲すること**:
 
 - `app/page.tsx`（server）が `getPosts()` を呼び、結果を `app/HomeClient.tsx`（`'use client'`）に渡す。カテゴリタブの状態は Client Component 側で保持。
-- `app/post/[slug]/page.tsx`（server）は `getPostBySlug(slug)` と `getPosts()` の両方を呼ぶ（後者は関連 works 用）。`generateStaticParams` でビルド時に全 slug を pre-render する。
+- `app/post/[slug]/page.tsx`（server）は `getPostBySlug(slug)` と `getPosts()` の両方を呼ぶ（後者は関連 works 用）。こちらは Client Component を持たず Server Component で完結する（`components/Header.tsx` のみ client）。`generateStaticParams` でビルド時に全 slug を pre-render する。
 
 microCMS 呼び出しを Client Component に持ち込まないこと。SDK は `process.env.MICROCMS_API_KEY` を参照するため、必ず Server 側に置く。
 
 ### microCMS アクセス
 
-microCMS と通信するのは `lib/microcms.ts` のみ。コンテンツタイプは `work` の 1 つだけで、`getPosts` は一覧用のフィールドサブセット、`getPostBySlug` は詳細レコード一式（`images[]` / `credit` / `colorText` / `archive` / `notAvailable` を含む）を返す。型は `types/post.ts`。
+microCMS と通信するのは `lib/microcms.ts` のみ。コンテンツタイプは `work` の 1 つだけで、`getPosts` は一覧用のフィールドサブセット（`LIST_FIELDS`）、`getPostBySlug` は詳細レコード一式（`DETAIL_FIELDS`: `images[]` / `credit` / `colorText` / `archive` / `notAvailable` を含む）を返す。型は `types/post.ts`。両関数とも React の `cache()` でメモ化されており、同一リクエスト内の重複フェッチは発生しない。`getPostBySlug` は該当 slug が無いとき `null` を返すので、呼び出し側で not-found 分岐が必要。
 
 リモート画像は `images.microcms-assets.io` から配信され、これが `next.config.mjs` の `images.remotePatterns` で唯一許可されているホスト。新しい画像配信元を追加するには、このリストを更新する必要がある。
 
 ### カテゴリフィルタ
 
-`components/posts.tsx` は `category[].title` でフィルタする。文字列 `'Front-end'` は「全件表示」として扱われる（`isShow = true` で短絡する）。`HomeClient` のタブは `'Front-end' | 'WordPress' | 'Web Design' | 'Tumblr'` を切り替えるが、**これらの文字列は microCMS のカテゴリタイトルと完全一致でマッチする**。CMS 側でカテゴリ名を変えるとサイレントにタブが壊れる点に注意。
+カテゴリの定義は `lib/categories.ts` に集約されている（`CATEGORIES` / `DEFAULT_CATEGORY` / `Category` / `CategoryFilter` 型）。タブの追加・変更はこのファイルを起点に行う。
+
+`components/Posts.tsx` は `CategoryFilter`（`Category | 'all'`）を受け取り、`'all'` なら全件、それ以外は `category[].title` との完全一致でフィルタする。`HomeClient` はデフォルトタブ（`DEFAULT_CATEGORY` = `'Front-end'`）を `'all'` にマップして全件表示する。**残りのタブラベル（`'WordPress' | 'Web Design' | 'Tumblr'`）は microCMS のカテゴリタイトルと完全一致でマッチする**ため、CMS 側でカテゴリ名を変えるとサイレントにタブが壊れる点に注意。
 
 ### スタイリング
 
-3 つのレイヤーを併用している:
+2 つのレイヤーを併用している:
 
-1. **SCSS Modules**（`styles/components/*.module.scss`, `styles/page/*.module.scss`）— メインのスタイリング手段。`@/styles/...` 経由で import する。
+1. **SCSS Modules**（`styles/components/*.module.scss`, `styles/page/*.module.scss`）— メインのスタイリング手段。`@/styles/...` 経由で import する。ファイル名は対応するコンポーネントに合わせて PascalCase（例: `Posts.module.scss`, `Home.module.scss`）。
 2. **グローバル SCSS**（`styles/foundation/global.scss`）— `app/layout.tsx` で 1 度だけ import される。`sassOptions.includePaths` に `styles/` が設定されているので、`@use 'foundation/variables'` のように相対パス無しで参照できる。
-3. **styled-components** — CMS データに応じた動的スタイル用（例: `app/post/[slug]/PostColorStyle.tsx` が記事ごとの文字色を注入する）。SSR は `lib/registry.tsx` の `StyledComponentsRegistry` 経由で配線されており、`app/layout.tsx` で children をラップしている必要がある。Next コンパイラは `styledComponents: true` を有効化済み。
 
-CSS リセットの `ress` は `app/layout.tsx` で import している。型シムは `types/ress.d.ts`。
+CMS データに応じた動的スタイルは、inline style で CSS 変数を注入して SCSS 側で参照する方式を取る（例: `app/post/[slug]/page.tsx` が `--color-text` に `post.colorText` を設定する）。以前使っていた styled-components は廃止済みなので、新たに導入しないこと。
+
+CSS リセットの `ress` と `nprogress/nprogress.css` は `app/layout.tsx` で import している。`ress` の型シムは `types/ress.d.ts`。
 
 ### パスエイリアス
 
-`@/*` はプロジェクトルートにマップされる（`tsconfig.json` 参照）。内部 import はすべてこれを使う（例: `@/lib/microcms`, `@/components/posts`, `@/styles/...`, `@/types/post`）。
+`@/*` はプロジェクトルートにマップされる（`tsconfig.json` 参照）。内部 import はすべてこれを使う（例: `@/lib/microcms`, `@/components/Posts`, `@/styles/...`, `@/types/post`）。コンポーネントのファイル名は PascalCase に統一されている。
 
 ### 末尾スラッシュ
 
@@ -69,7 +70,7 @@ CSS リセットの `ress` は `app/layout.tsx` で import している。型シ
 
 ### サイトメタデータ
 
-`next.config.mjs` の `env` で `siteUrl` / `siteName` / `ogImage` / `metaCard` が露出されており、Client Component からも `process.env.siteName` のように参照できる（`components/header.tsx` 参照）。これらはビルド時定数であって、ランタイム設定ではない。
+サイト共通の定数は `lib/site.ts` に定義されている（`SITE_URL` / `SITE_NAME` / `OG_IMAGE` / `TWITTER_CARD`）。Server / Client どちらのコンポーネントからも通常の import で参照する（例: `components/Header.tsx`, `app/page.tsx`）。以前の `next.config.mjs` の `env` 経由の露出（`process.env.siteName` など）は廃止済み。
 
 ### フォント
 
@@ -77,7 +78,7 @@ CSS リセットの `ress` は `app/layout.tsx` で import している。型シ
 
 ## Lint 設定の注意点
 
-`eslint.config.mjs` は `typescript-eslint` の `strictTypeChecked` + `stylisticTypeChecked` に `jsx-a11y/strict` と Next.js の core-web-vitals を重ねている。いくつかの strict ルールは意図的に `warn` に下げてある（`no-unsafe-call` は off、`restrict-plus-operands` / `restrict-template-expressions` / `no-unnecessary-condition` / `no-unused-vars` は warn）。理由なく `error` に戻さないこと。
+`eslint.config.mjs` は `typescript-eslint` の `strictTypeChecked` + `stylisticTypeChecked` に `jsx-a11y/strict` と Next.js の core-web-vitals を重ねている。いくつかの strict ルールは意図的に緩めてある（`no-unsafe-call` / `triple-slash-reference` は off、`restrict-plus-operands` / `restrict-template-expressions` / `no-unnecessary-condition` / `no-unused-vars` / `no-empty-object-type` / `no-case-declarations` / `react-hooks/immutability` は warn）。理由なく `error` に戻さないこと。
 
 ## 規約とワークフロー
 
@@ -85,5 +86,5 @@ CSS リセットの `ress` は `app/layout.tsx` で import している。型シ
 - **コミットメッセージ**: Conventional Commits + 英語（例: `chore(deps): bump 7 packages`, `fix(ui): restore arrow-key navigation on category tabs`）。過去履歴には `update:` / `add:` / `remove:` や `fix: styles` のような件名のみコミットなど非標準スタイルが混じっているが、**真似しない**。許可される type、推奨 scope（`app` / `microcms` / `ui` / `styles` / `seo` / `a11y` / `image` / `config` / `isr` / `font` / `deps` 等）、breaking change の扱いといった完全なルールは `.claude/skills/commit/SKILL.md` にある。ユーザーから「コミットして」と言われたらこのスキルを起動する。
 - **依存パッケージ更新**: `.claude/skills/update-deps/SKILL.md` に patch+minor 一括 / major 個別承認 / `overrides` の追従 / lint・build 検証 / dev server 目視確認の流れが定義されている。「パッケージ更新」「依存を上げて」と言われたらこのスキルを起動する。
 - **ステージしてはいけないファイル**: `.env`, `.DS_Store`, `.next/`, `tsconfig.tsbuildinfo`, `node_modules/` 配下。`git add` は常にファイル名指定で行い、`git add -A` / `git add .` は使わない。
-- **peer 制約のあるパッケージ**: `next` / `react` / `react-dom` はセットで動かす。片方だけ major を上げてはいけない。`styled-components` の major は `lib/registry.tsx`（SSR レジストリ）の見直しが必要になる場合がある。
+- **peer 制約のあるパッケージ**: `next` / `react` / `react-dom` はセットで動かす。片方だけ major を上げてはいけない。
 - **`.next/` キャッシュ**: リファクタやアップグレード後にビルド / dev 挙動が怪しくなったら、`node_modules` や lockfile に手を入れる前に `rm -rf .next` を試すのが安全な第一手。

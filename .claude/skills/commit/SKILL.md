@@ -16,7 +16,7 @@ description: 変更内容を Conventional Commits 形式でコミットする。
 
 - ブランチ運用: **`main` に直接コミット**
 - 言語: **英語**（件名・本文とも）。小文字始まり・末尾ピリオドなし・件名 50 字以内目安・本文は 72 字で改行
-- 末尾に `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` を付与
+- 末尾に `Co-Authored-By: Claude <noreply@anthropic.com>` を付与する（モデル名は含めず、この固定形とする）
 - push は **しない**（ユーザーが明示的に頼まない限り）
 
 > 参考: 過去のコミットには `update:` / `add:` / `remove:` / 件名のみの `fix: styles` など非標準スタイルが混在している。**今後は本スキルに従って Conventional Commits に統一する**。過去履歴は触らない。
@@ -77,7 +77,7 @@ git log -n 5 --pretty=format:'%s'   # 直近のスタイル参照
 - `deps` — 依存パッケージ（`chore(deps): bump N package(s)`）
 - `app` — App Router の page / layout（`app/page.tsx`, `app/post/[slug]/page.tsx`, `app/layout.tsx`）
 - `microcms` — microCMS 連携（`lib/microcms.ts`、`types/post.ts`、API 呼び出しの追加・変更）
-- `ui` — `components/` 配下と SCSS Modules / styled-components のスタイル全般
+- `ui` — `components/` 配下と SCSS Modules のスタイル全般
 - `styles` — `styles/foundation/`（global.scss / variables / mixin）の横断的変更
 - `seo` — `metadata` / OG / Twitter Card / `metadataBase`
 - `a11y` — アクセシビリティ（`jsx-a11y` 警告対応、ARIA、キーボード操作）
@@ -143,7 +143,7 @@ git log -n 5 --pretty=format:'%s'   # 直近のスタイル参照
 
 <body>
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+Co-Authored-By: Claude <noreply@anthropic.com>
 ---
 
 ステージ対象:
@@ -172,7 +172,7 @@ git commit -m "$(cat <<'EOF'
 
 <body>
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+Co-Authored-By: Claude <noreply@anthropic.com>
 EOF
 )"
 
