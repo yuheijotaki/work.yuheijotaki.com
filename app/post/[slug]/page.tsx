@@ -80,8 +80,7 @@ export const revalidate = 60 // 60秒ごとに再生成
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params
-  const post = await getPostBySlug(slug)
-  const posts = await getPosts()
+  const [post, posts] = await Promise.all([getPostBySlug(slug), getPosts()])
 
   if (!post) {
     return <div>Post not found</div>
@@ -101,9 +100,7 @@ export default async function PostPage({ params }: Props) {
             <dd>{post.date}</dd>
             <dt>Category:</dt>
             <dd>
-              {post.category
-                .map((object: { title: string }) => object.title)
-                .join(', ')}
+              {post.category.map((object) => object.title).join(', ')}
             </dd>
           </dl>
           <p className={styles.url}><PostUrl post={post} /></p>
@@ -120,6 +117,7 @@ export default async function PostPage({ params }: Props) {
                     src={object.url}
                     width={object.width}
                     height={object.height}
+                    sizes="(max-width: 1024px) 400px, 500px"
                     alt=""
                     priority={index === 0}
                   />
@@ -129,7 +127,7 @@ export default async function PostPage({ params }: Props) {
           </ul>
         </section>
         <aside className={styles.works} aria-label="関連投稿">
-          <Posts current={post.slug} posts={posts} filter="all"></Posts>
+          <Posts current={post.slug} posts={posts} filter="all" />
         </aside>
         <p className={styles.back}>
           <Link href={'/'}>Back to Index</Link>

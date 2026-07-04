@@ -74,6 +74,7 @@ export default function HomeClient({ posts }: { posts: PostListItem[] }) {
         />
         {CATEGORIES.map(({ label, slug }) => {
           const filter: CategoryFilter = label === DEFAULT_CATEGORY ? 'all' : label
+          const isActive = activeCategory === label
           return (
             <div
               key={slug}
@@ -81,9 +82,11 @@ export default function HomeClient({ posts }: { posts: PostListItem[] }) {
               role="tabpanel"
               id={`${slug}-panel`}
               aria-labelledby={`${slug}-tab`}
-              hidden={activeCategory !== label}
+              hidden={!isActive}
             >
-              <Posts current="" posts={posts} filter={filter} priorityFirst={filter === 'all'} />
+              {isActive && (
+                <Posts current="" posts={posts} filter={filter} priorityFirst={filter === 'all'} />
+              )}
             </div>
           )
         })}

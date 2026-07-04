@@ -24,6 +24,7 @@ function PostCard({ post, priority = false }: PostCardProps) {
           src={post.thumbnail?.url ?? ''}
           width={post.thumbnail?.width ?? 640}
           height={post.thumbnail?.height ?? 420}
+          sizes="(max-width: 1024px) 100px, 160px"
           alt=''
           priority={priority}
         />
